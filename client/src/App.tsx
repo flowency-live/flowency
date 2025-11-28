@@ -8,6 +8,7 @@ import LandingPage from "@/pages/LandingPage";
 import IntentOpsPage from "@/pages/IntentOpsPage";
 import ActuatePage from "@/pages/ActuatePage";
 import BuildPage from "@/pages/BuildPage";
+import CardPage from "@/pages/CardPage";
 import TermsOfUsePage from "@/pages/TermsOfUsePage";
 import PrivacyPolicyPage from "@/pages/PrivacyPolicyPage";
 import CookiePolicyPage from "@/pages/CookiePolicyPage";
@@ -23,6 +24,7 @@ function Router() {
       <Route path="/intentops" component={IntentOpsPage} />
       <Route path="/actuate" component={ActuatePage} />
       <Route path="/build" component={BuildPage} />
+      <Route path="/card" component={CardPage} />
       <Route path="/terms-of-use" component={TermsOfUsePage} />
       <Route path="/privacy-policy" component={PrivacyPolicyPage} />
       <Route path="/cookie-policy" component={CookiePolicyPage} />
