@@ -36,7 +36,7 @@ END:VCARD`
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0a0a1a] via-[#1a0a2e] to-[#0a0a1a] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
       <motion.div
         className="max-w-md w-full"
         initial={{ opacity: 0, scale: 0.95 }}
@@ -44,15 +44,15 @@ END:VCARD`
         transition={{ duration: 0.5 }}
       >
         {/* Card Container */}
-        <div className="bg-slate-800/80 backdrop-blur-lg rounded-3xl shadow-2xl border border-purple-500/30 overflow-hidden">
+        <div className="bg-slate-800/80 backdrop-blur-lg rounded-3xl shadow-2xl border border-orange-500/30 overflow-hidden">
           {/* Header with Logo */}
           <motion.div
-            className="bg-gradient-to-r from-purple-600 to-orange-500 p-8 text-center relative overflow-hidden"
+            className="bg-gradient-to-r from-orange-600 to-orange-500 p-8 text-center relative overflow-hidden"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-transparent to-orange-500/20"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 via-transparent to-orange-600/20"></div>
             <div className="mb-4 relative">
               <img
                 src="/assets/flowency-logo-dark.svg"
@@ -68,7 +68,7 @@ END:VCARD`
             >
               Jason Jones
             </motion.h1>
-            <p className="text-purple-100 text-sm font-medium">Founder</p>
+            <p className="text-orange-100 text-sm font-medium">Founder</p>
           </motion.div>
 
           {/* Content */}
@@ -92,10 +92,10 @@ END:VCARD`
             <div className="space-y-4">
               <a
                 href="mailto:hello@flowency.co.uk"
-                className="flex items-center gap-3 text-slate-300 hover:text-purple-400 transition-colors group"
+                className="flex items-center gap-3 text-slate-300 hover:text-orange-400 transition-colors group"
               >
-                <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center group-hover:bg-purple-500/30 transition-colors">
-                  <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-10 h-10 rounded-full bg-orange-500/20 flex items-center justify-center group-hover:bg-orange-500/30 transition-colors">
+                  <svg className="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
@@ -109,10 +109,10 @@ END:VCARD`
                 href="https://flowency.co.uk"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 text-slate-300 hover:text-purple-400 transition-colors group"
+                className="flex items-center gap-3 text-slate-300 hover:text-orange-400 transition-colors group"
               >
-                <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center group-hover:bg-purple-500/30 transition-colors">
-                  <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-10 h-10 rounded-full bg-orange-500/20 flex items-center justify-center group-hover:bg-orange-500/30 transition-colors">
+                  <svg className="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
                   </svg>
                 </div>
@@ -126,10 +126,10 @@ END:VCARD`
                 href="https://www.linkedin.com/in/jjonesuk/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 text-slate-300 hover:text-purple-400 transition-colors group"
+                className="flex items-center gap-3 text-slate-300 hover:text-orange-400 transition-colors group"
               >
-                <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center group-hover:bg-purple-500/30 transition-colors">
-                  <svg className="w-5 h-5 text-purple-400" fill="currentColor" viewBox="0 0 24 24">
+                <div className="w-10 h-10 rounded-full bg-orange-500/20 flex items-center justify-center group-hover:bg-orange-500/30 transition-colors">
+                  <svg className="w-5 h-5 text-orange-400" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                   </svg>
                 </div>
@@ -141,10 +141,10 @@ END:VCARD`
 
               <a
                 href="tel:+447758240770"
-                className="flex items-center gap-3 text-slate-300 hover:text-purple-400 transition-colors group"
+                className="flex items-center gap-3 text-slate-300 hover:text-orange-400 transition-colors group"
               >
-                <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center group-hover:bg-purple-500/30 transition-colors">
-                  <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-10 h-10 rounded-full bg-orange-500/20 flex items-center justify-center group-hover:bg-orange-500/30 transition-colors">
+                  <svg className="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                 </div>
@@ -180,7 +180,7 @@ END:VCARD`
             >
               <button
                 onClick={downloadVCard}
-                className="w-full bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white font-semibold py-4 rounded-xl transition-all transform hover:scale-105 shadow-lg shadow-purple-500/20"
+                className="w-full bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white font-semibold py-4 rounded-xl transition-all transform hover:scale-105 shadow-lg shadow-orange-500/20"
               >
                 Save to Contacts
               </button>
