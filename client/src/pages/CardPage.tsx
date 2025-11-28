@@ -47,15 +47,15 @@ END:VCARD`
         <div className="bg-slate-800/80 backdrop-blur-lg rounded-3xl shadow-2xl border border-orange-500/30 overflow-hidden">
           {/* Header with Logo */}
           <motion.div
-            className="bg-gradient-to-r from-orange-600 to-orange-500 p-8 text-center relative overflow-hidden"
+            className="bg-gradient-to-br from-slate-800 to-slate-900 p-8 text-center relative overflow-hidden border-b border-orange-500/20"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 via-transparent to-orange-600/20"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-orange-500/10"></div>
             <div className="mb-4 relative">
               <img
-                src="/assets/flowency-logo-dark.svg"
+                src="/Examples/Flowency Logo - Orange.svg"
                 alt="Flowency"
                 className="h-16 w-auto mx-auto drop-shadow-lg"
               />
@@ -68,7 +68,7 @@ END:VCARD`
             >
               Jason Jones
             </motion.h1>
-            <p className="text-orange-100 text-sm font-medium">Founder</p>
+            <p className="text-slate-300 text-sm font-medium">Founder</p>
           </motion.div>
 
           {/* Content */}
