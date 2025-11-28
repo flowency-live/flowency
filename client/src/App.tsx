@@ -7,6 +7,7 @@ import { useScrollToTop } from "@/hooks/useScrollToTop";
 import LandingPage from "@/pages/LandingPage";
 import IntentOpsPage from "@/pages/IntentOpsPage";
 import ActuatePage from "@/pages/ActuatePage";
+import BuildPage from "@/pages/BuildPage";
 import TermsOfUsePage from "@/pages/TermsOfUsePage";
 import PrivacyPolicyPage from "@/pages/PrivacyPolicyPage";
 import CookiePolicyPage from "@/pages/CookiePolicyPage";
@@ -15,12 +16,13 @@ import NotFound from "@/pages/not-found";
 function Router() {
   // Use the hook to scroll to top on route changes
   useScrollToTop();
-  
+
   return (
     <Switch>
       <Route path="/" component={LandingPage} />
       <Route path="/intentops" component={IntentOpsPage} />
       <Route path="/actuate" component={ActuatePage} />
+      <Route path="/build" component={BuildPage} />
       <Route path="/terms-of-use" component={TermsOfUsePage} />
       <Route path="/privacy-policy" component={PrivacyPolicyPage} />
       <Route path="/cookie-policy" component={CookiePolicyPage} />
