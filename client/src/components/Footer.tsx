@@ -1,6 +1,4 @@
 import { Link } from "wouter";
-import { useState } from "react";
-import ContactModal from "./ContactModal";
 
 interface FooterProps {
   ctaText?: string;
@@ -8,16 +6,17 @@ interface FooterProps {
   ctaButtonText?: string;
   ctaBgColor?: string;
   ctaTextColor?: string;
+  showCta?: boolean;
 }
 
-export default function Footer({ 
+export default function Footer({
   ctaText = "Ready to optimise your delivery systems?",
   ctaDescription = "Let's discuss how we can help transform your organisation's flow.",
   ctaButtonText = "Get in touch",
   ctaBgColor = "bg-white/10",
-  ctaTextColor = "text-white"
+  ctaTextColor = "text-white",
+  showCta = true
 }: FooterProps) {
-  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   return (
     <footer className="bg-gray-900 text-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -37,7 +36,11 @@ export default function Footer({
             <p className="text-gray-400 text-sm leading-relaxed mb-3">
               Flowency helps build intent-driven enterprises that sense, align, and deliver in real-time.
             </p>
-            <p className="text-gray-500 text-xs mb-4">© 2025 Flowency. All rights reserved.</p>
+            <p className="text-gray-500 text-xs mb-2">
+              Bank Chambers, St. Petersgate<br />
+              Stockport, England, SK1 1AR
+            </p>
+            <p className="text-gray-500 text-xs mb-4">© 2026 Flowency Ltd. All rights reserved.</p>
           </div>
 
           {/* Navigation Links */}
@@ -47,12 +50,12 @@ export default function Footer({
                 <h4 className="font-semibold mb-3 text-sm">Services</h4>
                 <ul className="space-y-2 text-sm">
                   <li><Link to="/" className="text-gray-400 hover:text-white transition-colors">Home</Link></li>
-                  <li><Link to="/intentops" className="text-gray-400 hover:text-amber-400 transition-colors">IntentOps</Link></li>
-                  <li><Link to="/actuate" className="text-gray-400 hover:text-yellow-400 transition-colors">Actuate</Link></li>
+                  <li><Link to="/ai-services" className="text-gray-400 hover:text-amber-400 transition-colors">AI Services</Link></li>
+                  <li><Link to="/contact" className="text-gray-400 hover:text-white transition-colors">Contact</Link></li>
                   <li>
-                    <a 
-                      href="https://www.linkedin.com/company/flowency/" 
-                      target="_blank" 
+                    <a
+                      href="https://www.linkedin.com/company/flowency/"
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="text-gray-400 hover:text-white transition-colors flex items-center space-x-2 text-sm mt-2"
                     >
@@ -71,40 +74,29 @@ export default function Footer({
                   <li><Link to="/terms-of-use" className="text-gray-400 hover:text-white transition-colors">Terms of Use</Link></li>
                   <li><Link to="/privacy-policy" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</Link></li>
                   <li><Link to="/cookie-policy" className="text-gray-400 hover:text-white transition-colors">Cookies</Link></li>
-                  <li>
-                    <button 
-                      onClick={() => setIsContactModalOpen(true)}
-                      className="text-gray-400 hover:text-white transition-colors text-sm mt-2 block text-left"
-                    >
-                      Contact Us
-                    </button>
-                  </li>
                 </ul>
               </div>
             </div>
           </div>
 
           {/* CTA Section */}
-          <div className="lg:col-span-1">
-            <div className={`${ctaBgColor} backdrop-blur-sm p-4 rounded-lg border border-white/20`}>
-              <h3 className={`text-lg font-bold mb-2 ${ctaTextColor}`}>{ctaText}</h3>
-              <p className="text-gray-400 mb-4 text-sm">{ctaDescription}</p>
-              <button 
-                onClick={() => setIsContactModalOpen(true)}
-                className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-medium transition-colors w-full"
-              >
-                {ctaButtonText}
-              </button>
+          {showCta && (
+            <div className="lg:col-span-1">
+              <div className={`${ctaBgColor} backdrop-blur-sm p-4 rounded-lg border border-white/20`}>
+                <h3 className={`text-lg font-bold mb-2 ${ctaTextColor}`}>{ctaText}</h3>
+                <p className="text-gray-400 mb-4 text-sm">{ctaDescription}</p>
+                <Link
+                  to="/contact"
+                  className="block bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-medium transition-colors w-full text-center"
+                >
+                  {ctaButtonText}
+                </Link>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 
-      {/* Contact Modal */}
-      <ContactModal 
-        isOpen={isContactModalOpen}
-        onClose={() => setIsContactModalOpen(false)}
-      />
     </footer>
   );
 }

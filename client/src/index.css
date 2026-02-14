@@ -108,78 +108,105 @@ textarea:focus-visible {
   animation: scroll 30s linear infinite;
 }
 
-:root {
-  --background: 0 0% 100%;
-  --foreground: 20 14.3% 4.1%;
-  --muted: 60 4.8% 95.9%;
-  --muted-foreground: 25 5.3% 44.7%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 20 14.3% 4.1%;
-  --card: 0 0% 100%;
-  --card-foreground: 20 14.3% 4.1%;
-  --border: 20 5.9% 90%;
-  --input: 20 5.9% 90%;
-  
-  /* Flowency colors - Updated to dark slate blue with subtle highlights */
-  --primary: 215 25% 27%; /* dark slate blue */
-  --primary-foreground: 0 0% 100%;
-  --secondary: 215 20% 35%; /* medium slate blue */
-  --secondary-foreground: 0 0% 100%;
-  --accent: 24 95% 53%; /* subtle orange */
-  --accent-foreground: 0 0% 100%;
-  --electric: 189 85% 55%; /* subtle cyan */
-  --electric-foreground: 0 0% 100%;
-  --flow-blue-light: 200 60% 65%; /* light blue for flows */
-  --flow-blue-dark: 215 35% 35%; /* dark slate blue for flows */
-  
-  /* Alert colors */
-  --destructive: 0 84.2% 60.2%; /* alert-red */
-  --destructive-foreground: 60 9.1% 97.8%;
-  --warning: 48 96% 67%; /* alert-yellow */
-  --warning-foreground: 24 9.8% 10%;
-  --ring: 20 14.3% 4.1%;
-  --radius: 0.5rem;
+.animate-scroll-reverse {
+  animation: scroll-reverse 30s linear infinite;
+}
 
-  /* Chart colors for infographic */
-  --chart-1: 212 75% 20%;  /* dark blue */
-  --chart-2: 212 60% 30%;  /* medium blue */
-  --chart-3: 16 100% 50%;   /* bright orange */
-  --chart-4: 190 100% 50%; /* bright cyan */
-  --chart-5: 200 80% 60%;  /* light blue */
-  --chart-6: 0 84.2% 60.2%; /* alert-red */
+@keyframes scroll-reverse {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Custom height for logos */
+.h-18 {
+  height: 4.5rem;
+}
+
+:root {
+  /* Base - warm slate */
+  --background: 220 14% 96%;
+  --foreground: 220 25% 12%;
+  --muted: 220 12% 90%;
+  --muted-foreground: 220 10% 45%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 220 25% 12%;
+  --card: 0 0% 100%;
+  --card-foreground: 220 25% 12%;
+  --border: 220 12% 88%;
+  --input: 220 12% 88%;
+
+  /* Brand - DESATURATED for editorial feel */
+  --primary: 215 35% 22%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 215 25% 35%;
+  --secondary-foreground: 0 0% 100%;
+
+  /* Single accent - muted terracotta (was 95% sat - too hot) */
+  --accent: 18 55% 50%;
+  --accent-foreground: 0 0% 100%;
+
+  /* Muted teal for secondary accents only */
+  --electric: 189 35% 42%;
+  --electric-foreground: 0 0% 100%;
+
+  /* Flow colors */
+  --flow-blue-light: 200 35% 55%;
+  --flow-blue-dark: 215 40% 30%;
+
+  /* Alert colors */
+  --destructive: 0 65% 50%;
+  --destructive-foreground: 0 0% 100%;
+  --warning: 45 80% 55%;
+  --warning-foreground: 220 25% 12%;
+  --ring: 220 25% 12%;
+  --radius: 0.25rem;
+
+  /* Chart colors */
+  --chart-1: 215 35% 22%;
+  --chart-2: 215 25% 35%;
+  --chart-3: 18 55% 50%;
+  --chart-4: 189 35% 42%;
+  --chart-5: 200 35% 55%;
+  --chart-6: 0 65% 50%;
 }
 
 .dark {
-  --background: 212 75% 10%;
-  --foreground: 0 0% 98%;
-  --muted: 212 40% 20%;
-  --muted-foreground: 240 5% 64.9%;
-  --popover: 212 70% 10%;
-  --popover-foreground: 0 0% 98%;
-  --card: 212 60% 15%;
-  --card-foreground: 0 0% 98%;
-  --border: 212 40% 25%;
-  --input: 212 40% 20%;
-  
-  /* Flowency colors */
-  --primary: 212 75% 20%; /* dark blue from image */
+  --background: 220 25% 8%;
+  --foreground: 220 10% 95%;
+  --muted: 220 20% 15%;
+  --muted-foreground: 220 10% 60%;
+  --popover: 220 25% 10%;
+  --popover-foreground: 220 10% 95%;
+  --card: 220 22% 12%;
+  --card-foreground: 220 10% 95%;
+  --border: 220 18% 20%;
+  --input: 220 18% 18%;
+
+  /* Brand - DESATURATED */
+  --primary: 215 40% 35%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 212 60% 30%; /* medium blue */
+  --secondary: 215 30% 45%;
   --secondary-foreground: 0 0% 100%;
-  --accent: 16 100% 50%; /* bright orange */
+
+  /* Muted terracotta */
+  --accent: 18 50% 55%;
   --accent-foreground: 0 0% 100%;
-  --electric: 190 100% 50%; /* bright cyan */
+  --electric: 189 30% 50%;
   --electric-foreground: 0 0% 100%;
-  --flow-blue-light: 200 80% 60%; /* light blue for flows */
-  --flow-blue-dark: 212 80% 40%; /* dark blue for flows */
-  
+  --flow-blue-light: 200 40% 60%;
+  --flow-blue-dark: 215 45% 40%;
+
   /* Alert colors */
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 0 0% 98%;
-  --warning: 48 96% 67%;
-  --warning-foreground: 240 5.9% 10%;
-  --ring: 240 4.9% 83.9%;
-  --radius: 0.5rem;
+  --destructive: 0 60% 55%;
+  --destructive-foreground: 0 0% 100%;
+  --warning: 45 75% 55%;
+  --warning-foreground: 220 25% 10%;
+  --ring: 220 10% 80%;
+  --radius: 0.25rem;
 }
 
 @layer base {

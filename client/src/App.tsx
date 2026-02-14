@@ -2,12 +2,12 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { queryClient } from "./lib/queryClient";
-import { Route, Switch } from "wouter";
+import { Route, Switch, Redirect } from "wouter";
 import { useScrollToTop } from "@/hooks/useScrollToTop";
 import LandingPage from "@/pages/LandingPage";
 import LandingPageV2 from "@/pages/LandingPageV2";
-import IntentOpsPage from "@/pages/IntentOpsPage";
-import ActuatePage from "@/pages/ActuatePage";
+import AIServicesPage from "@/pages/AIServicesPage";
+import ContactPage from "@/pages/ContactPage";
 import BuildPage from "@/pages/BuildPage";
 import CardPage from "@/pages/CardPage";
 import TermsOfUsePage from "@/pages/TermsOfUsePage";
@@ -21,10 +21,12 @@ function Router() {
 
   return (
     <Switch>
-      <Route path="/" component={LandingPage} />
-      <Route path="/homev2" component={LandingPageV2} />
-      <Route path="/intentops" component={IntentOpsPage} />
-      <Route path="/actuate" component={ActuatePage} />
+      <Route path="/" component={LandingPageV2} />
+      <Route path="/home-v1" component={LandingPage} />
+      <Route path="/ai-services" component={AIServicesPage} />
+      <Route path="/contact" component={ContactPage} />
+      <Route path="/intentops">{() => <Redirect to="/ai-services" />}</Route>
+      <Route path="/actuate">{() => <Redirect to="/ai-services" />}</Route>
       <Route path="/build" component={BuildPage} />
       <Route path="/card" component={CardPage} />
       <Route path="/terms-of-use" component={TermsOfUsePage} />
