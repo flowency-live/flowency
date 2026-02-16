@@ -175,6 +175,20 @@ export default function LandingPageV2() {
         </div>
       </section>
 
+      {/* Anti-Theatre Statement */}
+      <section className="py-12 md:py-16 bg-muted/40">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+          <motion.div {...fadeIn}>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+              Digital transformation without the theatre.
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              No expensive consultancies. No six-month discovery phases. No slide decks that cost more than the implementation. Just delivery.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Our Approach Section */}
       <section id="approach" className="py-20 md:py-28 bg-muted/40">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
