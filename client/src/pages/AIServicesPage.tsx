@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X, ArrowRight, Target, Shield } from "lucide-react";
 import { motion } from "framer-motion";
 import SEOHead from "@/components/SEOHead";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -12,13 +12,13 @@ export default function AIServicesPage() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": "AI Services - IntentOps & Actuate",
+    "name": "AI-DLC - AI Delivery Life Cycle | IntentOps & Actuate",
     "provider": {
       "@type": "Organization",
       "name": "Flowency",
     },
-    "description": "Full-stack AI consulting from strategy to production. IntentOps for alignment and governance, Actuate for building and delivery.",
-    "serviceType": "AI Consulting",
+    "description": "AI-DLC keeps delivery systems aligned when AI builds faster than you can decide. IntentOps spans both frontiers (upstream intent, downstream governance). Actuate handles scalable AI-native delivery.",
+    "serviceType": "AI Delivery Consulting",
     "areaServed": "GB",
   };
 
@@ -32,9 +32,9 @@ export default function AIServicesPage() {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="AI Services - IntentOps & Actuate | Flowency"
-        description="Full-stack AI consulting from strategy to production. IntentOps aligns AI to business value. Actuate builds and delivers working AI tools."
-        keywords="AI consulting, AI strategy, AI implementation, IntentOps, Actuate, enterprise AI, AI governance"
+        title="AI-DLC - AI Delivery Life Cycle | Flowency"
+        description="AI-DLC keeps delivery systems aligned when AI builds faster than you can decide. IntentOps for upstream intent and downstream governance. Actuate for scalable AI-native delivery."
+        keywords="AI-DLC, AI delivery life cycle, IntentOps, Actuate, AI governance, delivery systems, AI alignment, enterprise AI"
         canonicalUrl="https://flowency.co.uk/ai-services"
         structuredData={structuredData}
       />
@@ -64,7 +64,7 @@ export default function AIServicesPage() {
                 Services
               </Link>
               <Link to="/ai-services" className="text-sm text-accent font-medium">
-                AI Services
+                AI-DLC
               </Link>
               <ThemeToggle />
               <Link
@@ -92,7 +92,7 @@ export default function AIServicesPage() {
                 Home
               </Link>
               <Link to="/ai-services" className="block text-accent font-medium">
-                AI Services
+                AI-DLC
               </Link>
               <Link to="/contact" className="block text-foreground hover:text-accent transition-colors">
                 Contact
@@ -106,6 +106,9 @@ export default function AIServicesPage() {
       <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-background">
         <div className="max-w-6xl mx-auto px-6 lg:px-8 text-center">
           <motion.div {...fadeIn}>
+            <p className="text-sm uppercase tracking-widest text-accent font-medium mb-4">
+              AI Delivery Life Cycle
+            </p>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-foreground leading-tight mb-6">
               Execution isn't the<br />constraint anymore.
             </h1>
@@ -113,7 +116,7 @@ export default function AIServicesPage() {
               Alignment is.
             </p>
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl mx-auto">
-              AI can build faster than you can decide what to build. The new bottleneck isn't delivery capacity - it's knowing what to activate, why, and how to keep it aligned once it's live.
+              AI-DLC is how you keep delivery systems aligned when AI builds faster than you can decide. The bottleneck isn't capacity - it's knowing what to activate, why, and how to keep it aligned once it's live.
             </p>
             <Link
               to="/contact"
@@ -133,50 +136,127 @@ export default function AIServicesPage() {
             <p className="text-xl md:text-2xl text-foreground font-medium leading-relaxed mb-6">
               If your clarity is off by 5%, AI will amplify it by 500%.
             </p>
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            <p className="text-lg text-muted-foreground leading-relaxed mb-8">
               Speed without intent isn't innovation - it's waste, accelerated. The new failure mode isn't late delivery. It's instant delivery of the wrong things. When every exec's "great idea" can hit production overnight, economic discipline becomes survival.
             </p>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-medium transition-colors"
+            >
+              Sound familiar? Let's talk about your alignment gaps.
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </motion.div>
         </div>
       </section>
 
       {/* The Shift */}
       <section className="py-16 md:py-20 bg-background">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <motion.div {...fadeIn}>
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-10 text-center">
               The craft didn't disappear. It moved.
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-              <div className="p-6">
-                <p className="text-sm text-muted-foreground uppercase tracking-wide mb-2">Upstream</p>
-                <p className="text-lg text-foreground font-medium">Strategic intent</p>
-                <p className="text-sm text-muted-foreground mt-2">Defining value, clarity, purpose, alignment</p>
+
+            {/* Three column layout with emphasis on frontiers */}
+            <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-6 items-stretch mb-8">
+
+              {/* Upstream Frontier - PROMINENT */}
+              <div className="bg-accent/10 border-2 border-accent rounded-lg p-6 md:p-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                    <Target className="w-5 h-5 text-accent" />
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-widest text-accent font-semibold">Upstream</p>
+                    <p className="text-lg font-bold text-foreground">Frontier</p>
+                  </div>
+                </div>
+                <ul className="space-y-2 text-foreground">
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-accent rounded-full" />
+                    Intent & clarity
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-accent rounded-full" />
+                    Prioritisation
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-accent rounded-full" />
+                    Economics
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-accent rounded-full" />
+                    Alignment
+                  </li>
+                </ul>
               </div>
-              <div className="p-6 border-y md:border-y-0 md:border-x border-border">
-                <p className="text-sm text-muted-foreground uppercase tracking-wide mb-2">Middle</p>
-                <p className="text-lg text-foreground font-medium">Now ambient</p>
-                <p className="text-sm text-muted-foreground mt-2">Build & test - accelerated, spec-driven, AI-native</p>
+
+              {/* Middle - MUTED */}
+              <div className="flex flex-col items-center justify-center px-4 py-6 md:py-0 opacity-50">
+                <div className="border border-dashed border-muted-foreground/40 rounded px-4 py-3 text-center">
+                  <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">The Middle</p>
+                  <p className="text-sm font-medium text-muted-foreground">Now ambient</p>
+                  <p className="text-xs text-muted-foreground mt-1">AI handles this</p>
+                </div>
               </div>
-              <div className="p-6">
-                <p className="text-sm text-muted-foreground uppercase tracking-wide mb-2">Downstream</p>
-                <p className="text-lg text-foreground font-medium">The new frontier</p>
-                <p className="text-sm text-muted-foreground mt-2">Assurance, governance, observability, learning loops</p>
+
+              {/* Downstream Frontier - PROMINENT */}
+              <div className="bg-accent/10 border-2 border-accent rounded-lg p-6 md:p-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                    <Shield className="w-5 h-5 text-accent" />
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-widest text-accent font-semibold">Downstream</p>
+                    <p className="text-lg font-bold text-foreground">Frontier</p>
+                  </div>
+                </div>
+                <ul className="space-y-2 text-foreground">
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-accent rounded-full" />
+                    Assurance
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-accent rounded-full" />
+                    Governance
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-accent rounded-full" />
+                    Observability
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-accent rounded-full" />
+                    Learning loops
+                  </li>
+                </ul>
               </div>
+            </div>
+
+            {/* "Where you need us" banner */}
+            <div className="bg-primary text-primary-foreground py-5 px-6 rounded-lg text-center">
+              <p className="font-semibold text-lg mb-2">This is where you need us.</p>
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 text-sm text-primary-foreground/90 hover:text-primary-foreground underline underline-offset-2"
+              >
+                Book a discovery call
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Two Pillars */}
+      {/* Our AI-DLC Approach */}
       <section className="py-20 md:py-28 bg-muted/40">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <motion.div {...fadeIn} className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Two capabilities. One control layer.
+              Our AI-DLC Approach
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Strategy without execution is just a deck. Execution without alignment is just accelerated waste.
+              Two capabilities. One control layer across both frontiers.
             </p>
           </motion.div>
 
@@ -184,10 +264,16 @@ export default function AIServicesPage() {
             {/* IntentOps Card */}
             <motion.div
               {...fadeIn}
-              className="bg-card border border-border rounded p-8 md:p-10"
+              className="bg-card border border-border rounded p-8 md:p-10 flex flex-col"
             >
-              <div className="inline-block bg-primary text-primary-foreground px-4 py-1.5 rounded text-sm font-medium mb-6">
-                IntentOps
+              <div className="flex items-center gap-3 mb-6">
+                <div className="inline-block bg-primary text-primary-foreground px-4 py-1.5 rounded text-sm font-medium">
+                  IntentOps
+                </div>
+                <div className="flex gap-1">
+                  <span className="px-2 py-0.5 bg-accent/15 text-accent text-xs rounded border border-accent/30">Upstream</span>
+                  <span className="px-2 py-0.5 bg-accent/15 text-accent text-xs rounded border border-accent/30">Downstream</span>
+                </div>
               </div>
               <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-2">
                 Cognitive sovereignty for the AI era.
@@ -196,9 +282,9 @@ export default function AIServicesPage() {
                 Retain the ability to steer. Scale without it, and you don't own the outcome.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                When AI systems design, decide, build and act, the risk is no longer loss of data - it's loss of intent, reasoning and accountability. IntentOps is your real-time control layer: connecting AI initiatives to measurable value, with governance that enables rather than blocks.
+                IntentOps spans both frontiers: upstream for clarifying intent, prioritisation and economics; downstream for governance, observability and learning loops. Your real-time control layer for connecting AI initiatives to measurable value.
               </p>
-              <ul className="space-y-3">
+              <ul className="space-y-3 mb-8">
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0" />
                   <span className="text-foreground">Why did the system do this? Who set the rules? Who intervenes when it drifts?</span>
@@ -212,16 +298,28 @@ export default function AIServicesPage() {
                   <span className="text-foreground">Detect drift before it becomes cognitive debt</span>
                 </li>
               </ul>
+              <div className="mt-auto">
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-medium transition-colors"
+                >
+                  Talk to us about IntentOps
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </motion.div>
 
             {/* Actuate Card */}
             <motion.div
               {...fadeIn}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="bg-card border border-border rounded p-8 md:p-10"
+              className="bg-card border border-border rounded p-8 md:p-10 flex flex-col"
             >
-              <div className="inline-block bg-accent text-accent-foreground px-4 py-1.5 rounded text-sm font-medium mb-6">
-                Actuate
+              <div className="flex items-center gap-3 mb-6">
+                <div className="inline-block bg-accent text-accent-foreground px-4 py-1.5 rounded text-sm font-medium">
+                  Actuate
+                </div>
+                <span className="px-2 py-0.5 bg-muted text-muted-foreground text-xs rounded border border-border">The Middle</span>
               </div>
               <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-2">
                 From spec to production. No slideshows.
@@ -230,9 +328,9 @@ export default function AIServicesPage() {
                 Don't like it? Rip it up and start again. In minutes.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                AI-DLC means software is disposable like infrastructure became with IaC. Write the spec. Generate the product. Deploy it. Iterate. Your differentiators become your data, your clarity of intent, and your ability to steer. Actuate builds what others only talk about.
+                Actuate handles the ambient middle - AI-native delivery at scale. Software becomes disposable like infrastructure did with IaC. Write the spec. Generate. Deploy. Iterate. Your differentiators become your data, your clarity of intent, and your ability to steer.
               </p>
-              <ul className="space-y-3">
+              <ul className="space-y-3 mb-8">
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0" />
                   <span className="text-foreground">Prototype to production while you're still in sprint planning</span>
@@ -246,6 +344,15 @@ export default function AIServicesPage() {
                   <span className="text-foreground">Behaviour-first, spec-driven development</span>
                 </li>
               </ul>
+              <div className="mt-auto">
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-medium transition-colors"
+                >
+                  See how Actuate delivers
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </motion.div>
           </div>
         </div>
@@ -263,9 +370,18 @@ export default function AIServicesPage() {
                 While AI use is democratised across the enterprise, its risks aren't. Code that works but nobody can explain why. Automations running critical systems with zero docs. AI models making decisions we can't trace. Critical business logic buried in tools nobody owns.
               </p>
             </div>
-            <p className="text-lg text-muted-foreground leading-relaxed text-center">
+            <p className="text-lg text-muted-foreground leading-relaxed text-center mb-8">
               Yes, AI helps you do things faster. But velocity without discipline is just faster chaos. The $2 trillion in global tech debt isn't a backlog of code - it's a backlog of bad decisions. AI will accelerate both outcomes and debt. You choose which.
             </p>
+            <div className="text-center">
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-accent-foreground hover:bg-accent/90 font-medium rounded transition-colors"
+              >
+                Request a cognitive debt audit
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>

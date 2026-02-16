@@ -99,7 +99,7 @@ export default function LandingPageV2() {
           <div className="hidden md:flex items-center space-x-8">
             <a href="#approach" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Approach</a>
             <a href="#services" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Services</a>
-            <Link to="/ai-services" className="text-sm text-muted-foreground hover:text-foreground transition-colors">AI Services</Link>
+            <Link to="/ai-services" className="text-sm text-muted-foreground hover:text-foreground transition-colors">AI-DLC</Link>
             <ThemeToggle />
             <Link
               to="/contact"
@@ -125,7 +125,7 @@ export default function LandingPageV2() {
             <div className="px-6 py-4 space-y-3">
               <a href="#approach" className="block text-sm text-muted-foreground hover:text-foreground">Approach</a>
               <a href="#services" className="block text-sm text-muted-foreground hover:text-foreground">Services</a>
-              <Link to="/ai-services" className="block text-sm text-muted-foreground hover:text-foreground">AI Services</Link>
+              <Link to="/ai-services" className="block text-sm text-muted-foreground hover:text-foreground">AI-DLC</Link>
               <Link
                 to="/contact"
                 onClick={() => setIsMenuOpen(false)}
