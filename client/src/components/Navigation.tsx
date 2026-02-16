@@ -1,75 +1,67 @@
 import { Link } from "wouter";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { ThemeToggle } from "./ThemeToggle";
 
 interface NavigationProps {
-  currentPage?: 'home' | 'intentops' | 'actuate';
+  currentPage?: 'home' | 'ai-services';
 }
 
 export default function Navigation({ currentPage = 'home' }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 w-full bg-white/95 backdrop-blur-sm z-50 border-b border-gray-200">
+    <nav className="fixed top-0 left-0 right-0 w-full bg-background/98 backdrop-blur-sm z-50 border-b border-border">
       <div className="w-full px-6 lg:px-12">
         <div className="flex items-center justify-between h-16">
           {/* Logo - Left */}
-          <div className="flex items-center">
-            <Link to="/">
-              <img
-                src="https://cdn.prod.website-files.com/668bbc8f0f25bb8294a73f2f/6695430306a42b90cd8bf9be_Flowency-logo-meso.svg"
-                alt="Flowency"
-                className="h-8 w-auto cursor-pointer"
-              />
-            </Link>
-          </div>
+          <Link to="/" className="flex-shrink-0">
+            <img
+              src="/assets/flowency-logo-light.svg"
+              alt="Flowency"
+              className="h-9 w-auto cursor-pointer hover:opacity-70 transition-opacity dark:hidden"
+            />
+            <img
+              src="/assets/flowency-logo-dark.svg"
+              alt="Flowency"
+              className="h-9 w-auto cursor-pointer hover:opacity-70 transition-opacity hidden dark:block"
+            />
+          </Link>
 
           {/* Nav Links - Center */}
           <div className="hidden md:flex items-center gap-8">
-            <Link to="/" className={`text-sm transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-orange-500 after:transition-all after:duration-300 ${
-              currentPage === 'home'
-                ? 'text-orange-600 font-semibold'
-                : 'text-gray-600 hover:text-orange-600'
+            <a href="#approach" className="text-sm text-muted-foreground hover:text-foreground transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-foreground after:transition-all after:duration-300">
+              Approach
+            </a>
+            <a href="#services" className="text-sm text-muted-foreground hover:text-foreground transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-foreground after:transition-all after:duration-300">
+              Services
+            </a>
+            <Link to="/ai-services" className={`text-sm transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:transition-all after:duration-300 ${
+              currentPage === 'ai-services'
+                ? 'text-accent font-medium after:w-full after:bg-accent'
+                : 'text-muted-foreground hover:text-foreground after:w-0 hover:after:w-full after:bg-foreground'
             }`}>
-              Home
-            </Link>
-            <Link to="/intentops" className={`text-sm transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-amber-500 after:transition-all after:duration-300 ${
-              currentPage === 'intentops'
-                ? 'text-amber-500 font-semibold'
-                : 'text-gray-600 hover:text-amber-500'
-            }`}>
-              IntentOps
-            </Link>
-            <Link to="/actuate" className={`text-sm transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-teal-500 after:transition-all after:duration-300 ${
-              currentPage === 'actuate'
-                ? 'text-teal-500 font-semibold'
-                : 'text-gray-600 hover:text-teal-500'
-            }`}>
-              Actuate
+              AI-DLC
             </Link>
           </div>
 
-          {/* CTA - Right */}
-          <div className="hidden md:flex items-center">
-            <a
-              href="#contact"
-              className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md transition-all duration-300 text-sm font-medium shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40"
+          {/* Theme Toggle & CTA - Right */}
+          <div className="hidden md:flex items-center gap-4">
+            <ThemeToggle />
+            <Link
+              to="/contact"
+              className="px-5 py-2 text-sm font-medium bg-accent text-accent-foreground hover:bg-accent/90 transition-colors rounded-md"
             >
               Contact
-            </a>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center gap-3">
-            <a
-              href="#contact"
-              className="bg-orange-500 hover:bg-orange-600 text-white px-3 py-2 rounded-md transition-colors text-sm"
-            >
-              Contact
-            </a>
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-md transition-colors"
+              className="p-2 text-foreground hover:text-accent transition-colors"
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={isMenuOpen}
             >
@@ -80,40 +72,39 @@ export default function Navigation({ currentPage = 'home' }: NavigationProps) {
 
         {/* Mobile menu */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200 bg-white">
-            <div className="flex flex-col gap-1">
+          <div className="md:hidden py-4 border-t border-border bg-background">
+            <div className="flex flex-col gap-3">
+              <a
+                href="#approach"
+                className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Approach
+              </a>
+              <a
+                href="#services"
+                className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Services
+              </a>
               <Link
-                to="/"
-                className={`px-3 py-2 text-sm transition-colors duration-300 ${
-                  currentPage === 'home'
-                    ? 'text-orange-600 font-semibold'
-                    : 'text-gray-600 hover:text-orange-600'
+                to="/ai-services"
+                className={`px-3 py-2 text-sm transition-colors ${
+                  currentPage === 'ai-services'
+                    ? 'text-accent font-medium'
+                    : 'text-muted-foreground hover:text-foreground'
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
-                Home
+                AI-DLC
               </Link>
               <Link
-                to="/intentops"
-                className={`px-3 py-2 text-sm transition-colors duration-300 ${
-                  currentPage === 'intentops'
-                    ? 'text-amber-500 font-semibold'
-                    : 'text-gray-600 hover:text-amber-500'
-                }`}
+                to="/contact"
+                className="px-3 py-2 text-sm text-accent font-medium"
                 onClick={() => setIsMenuOpen(false)}
               >
-                IntentOps
-              </Link>
-              <Link
-                to="/actuate"
-                className={`px-3 py-2 text-sm transition-colors duration-300 ${
-                  currentPage === 'actuate'
-                    ? 'text-teal-500 font-semibold'
-                    : 'text-gray-600 hover:text-teal-500'
-                }`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Actuate
+                Contact
               </Link>
             </div>
           </div>

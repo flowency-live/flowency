@@ -78,10 +78,11 @@ export default function LandingPageV2() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Navigation - Full-width style */}
+      {/* Navigation - Full-width style with centered links */}
       <nav className="fixed top-0 w-full bg-background/98 backdrop-blur-sm z-50 border-b border-border">
-        <div className="flex justify-between items-center h-16 px-6 lg:px-12">
-          <Link to="/">
+        <div className="flex items-center justify-between h-16 px-6 lg:px-12">
+          {/* Logo - Left */}
+          <Link to="/" className="flex-shrink-0">
             {/* Light mode logo */}
             <img
               src="/assets/flowency-logo-light.svg"
@@ -96,20 +97,26 @@ export default function LandingPageV2() {
             />
           </Link>
 
-          <div className="hidden md:flex items-center space-x-8">
-            <a href="#approach" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Approach</a>
-            <a href="#services" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Services</a>
-            <Link to="/ai-services" className="text-sm text-muted-foreground hover:text-foreground transition-colors">AI-DLC</Link>
+          {/* Nav Links - Center */}
+          <div className="hidden md:flex items-center gap-8">
+            <a href="#approach" className="text-sm text-muted-foreground hover:text-foreground transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-foreground after:transition-all after:duration-300">Approach</a>
+            <a href="#services" className="text-sm text-muted-foreground hover:text-foreground transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-foreground after:transition-all after:duration-300">Services</a>
+            <Link to="/ai-services" className="text-sm text-muted-foreground hover:text-foreground transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-foreground after:transition-all after:duration-300">AI-DLC</Link>
+          </div>
+
+          {/* Theme Toggle & CTA - Right */}
+          <div className="hidden md:flex items-center gap-4">
             <ThemeToggle />
             <Link
               to="/contact"
-              className="px-5 py-2 text-sm font-medium text-accent-foreground bg-accent hover:bg-accent/90 transition-colors rounded"
+              className="px-5 py-2 text-sm font-medium text-accent-foreground bg-accent hover:bg-accent/90 transition-colors rounded-md"
             >
               Contact
             </Link>
           </div>
 
-          <div className="md:hidden flex items-center space-x-2">
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center gap-2">
             <ThemeToggle />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}

@@ -39,48 +39,58 @@ export default function AIServicesPage() {
         structuredData={structuredData}
       />
 
-      {/* Navigation */}
+      {/* Navigation - Full-width style with centered links */}
       <nav className="fixed top-0 w-full bg-background/98 backdrop-blur-sm z-50 border-b border-border">
-        <div className="flex justify-between items-center h-16 px-6 lg:px-12">
-            <Link to="/">
-              <img
-                src="/assets/flowency-logo-light.svg"
-                alt="Flowency"
-                className="h-9 w-auto cursor-pointer hover:opacity-70 transition-opacity dark:hidden"
-              />
-              <img
-                src="/assets/flowency-logo-dark.svg"
-                alt="Flowency"
-                className="h-9 w-auto cursor-pointer hover:opacity-70 transition-opacity hidden dark:block"
-              />
+        <div className="flex items-center justify-between h-16 px-6 lg:px-12">
+          {/* Logo - Left */}
+          <Link to="/" className="flex-shrink-0">
+            <img
+              src="/assets/flowency-logo-light.svg"
+              alt="Flowency"
+              className="h-9 w-auto cursor-pointer hover:opacity-70 transition-opacity dark:hidden"
+            />
+            <img
+              src="/assets/flowency-logo-dark.svg"
+              alt="Flowency"
+              className="h-9 w-auto cursor-pointer hover:opacity-70 transition-opacity hidden dark:block"
+            />
+          </Link>
+
+          {/* Nav Links - Center */}
+          <div className="hidden md:flex items-center gap-8">
+            <Link to="/#approach" className="text-sm text-muted-foreground hover:text-foreground transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-foreground after:transition-all after:duration-300">
+              Approach
             </Link>
+            <Link to="/#services" className="text-sm text-muted-foreground hover:text-foreground transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-foreground after:transition-all after:duration-300">
+              Services
+            </Link>
+            <Link to="/ai-services" className="text-sm text-accent font-medium relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:bg-accent">
+              AI-DLC
+            </Link>
+          </div>
 
-            <div className="hidden md:flex items-center space-x-8">
-              <Link to="/#approach" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                Approach
-              </Link>
-              <Link to="/#services" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                Services
-              </Link>
-              <Link to="/ai-services" className="text-sm text-accent font-medium">
-                AI-DLC
-              </Link>
-              <ThemeToggle />
-              <Link
-                to="/contact"
-                className="px-5 py-2 text-sm font-medium text-accent-foreground bg-accent hover:bg-accent/90 transition-colors rounded"
-              >
-                Contact
-              </Link>
-            </div>
+          {/* Theme Toggle & CTA - Right */}
+          <div className="hidden md:flex items-center gap-4">
+            <ThemeToggle />
+            <Link
+              to="/contact"
+              className="px-5 py-2 text-sm font-medium text-accent-foreground bg-accent hover:bg-accent/90 transition-colors rounded-md"
+            >
+              Contact
+            </Link>
+          </div>
 
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden text-foreground"
+              className="text-foreground p-2"
               aria-label="Toggle menu"
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
+          </div>
         </div>
 
         {isMenuOpen && (
