@@ -192,13 +192,11 @@ export default function AIServicesPage() {
                 </ul>
               </div>
 
-              {/* Middle - MUTED */}
-              <div className="flex flex-col items-center justify-center px-4 py-6 md:py-0 opacity-50">
-                <div className="border border-dashed border-muted-foreground/40 rounded px-4 py-3 text-center">
-                  <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">The Middle</p>
-                  <p className="text-sm font-medium text-muted-foreground">Now ambient</p>
-                  <p className="text-xs text-muted-foreground mt-1">AI handles this</p>
-                </div>
+              {/* Middle - Original style but slightly muted */}
+              <div className="p-6 border-y md:border-y-0 md:border-x border-border flex flex-col justify-center text-center opacity-60">
+                <p className="text-sm text-muted-foreground uppercase tracking-wide mb-2">Middle</p>
+                <p className="text-lg text-foreground font-medium">Now ambient</p>
+                <p className="text-sm text-muted-foreground mt-2">Build & test - accelerated, spec-driven, AI-native</p>
               </div>
 
               {/* Downstream Frontier - PROMINENT */}
