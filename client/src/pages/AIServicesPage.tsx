@@ -41,8 +41,7 @@ export default function AIServicesPage() {
 
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-background/98 backdrop-blur-sm z-50 border-b border-border">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-16 px-6 lg:px-12">
             <Link to="/">
               <img
                 src="/assets/flowency-logo-light.svg"
@@ -82,7 +81,6 @@ export default function AIServicesPage() {
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
-          </div>
         </div>
 
         {isMenuOpen && (
