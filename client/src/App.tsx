@@ -13,6 +13,7 @@ import CardPage from "@/pages/CardPage";
 import TermsOfUsePage from "@/pages/TermsOfUsePage";
 import PrivacyPolicyPage from "@/pages/PrivacyPolicyPage";
 import CookiePolicyPage from "@/pages/CookiePolicyPage";
+import VideoPage from "@/pages/VideoPage";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -32,6 +33,7 @@ function Router() {
       <Route path="/terms-of-use" component={TermsOfUsePage} />
       <Route path="/privacy-policy" component={PrivacyPolicyPage} />
       <Route path="/cookie-policy" component={CookiePolicyPage} />
+      <Route path="/resources/optimize-delivery" component={VideoPage} />
       <Route component={NotFound} />
     </Switch>
   );
