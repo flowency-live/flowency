@@ -55,7 +55,7 @@ export default function VideoPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen" style={{ background: 'hsl(215, 40%, 12%)' }}>
       <SEOHead
         title="Optimize Delivery Systems | Flowency"
         description="Watch how Flowency helps organisations optimise their delivery systems for better flow, reduced waste, and improved outcomes."
@@ -65,36 +65,31 @@ export default function VideoPage() {
       />
 
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-background/98 backdrop-blur-sm z-50 border-b border-border">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+      <nav className="fixed top-0 w-full z-50 border-b border-white/10" style={{ background: 'hsla(215, 40%, 10%, 0.98)', backdropFilter: 'blur(8px)' }}>
+        <div className="max-content">
           <div className="flex justify-between items-center h-16">
             <Link to="/">
               <img
-                src="/assets/flowency-logo-light.svg"
-                alt="Flowency"
-                className="h-9 w-auto cursor-pointer hover:opacity-70 transition-opacity dark:hidden"
-              />
-              <img
                 src="/assets/flowency-logo-dark.svg"
                 alt="Flowency"
-                className="h-9 w-auto cursor-pointer hover:opacity-70 transition-opacity hidden dark:block"
+                className="h-9 w-auto cursor-pointer hover:opacity-70 transition-opacity"
               />
             </Link>
 
             <div className="hidden md:flex items-center space-x-8">
-              <Link to="/#approach" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <Link to="/#approach" className="text-sm text-white/60 hover:text-white transition-colors">
                 Approach
               </Link>
-              <Link to="/#services" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <Link to="/#services" className="text-sm text-white/60 hover:text-white transition-colors">
                 Services
               </Link>
-              <Link to="/ai-services" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <Link to="/ai-services" className="text-sm text-white/60 hover:text-white transition-colors">
                 AI Services
               </Link>
               <ThemeToggle />
               <Link
                 to="/contact"
-                className="px-5 py-2 text-sm font-medium text-accent-foreground bg-accent hover:bg-accent/90 transition-colors rounded"
+                className="px-5 py-2 text-sm font-medium text-white bg-[hsl(18,55%,48%)] hover:bg-[hsl(18,55%,45%)] transition-colors rounded"
               >
                 Contact
               </Link>
@@ -102,7 +97,7 @@ export default function VideoPage() {
 
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden text-foreground"
+              className="md:hidden text-white"
               aria-label="Toggle menu"
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -111,15 +106,15 @@ export default function VideoPage() {
         </div>
 
         {isMenuOpen && (
-          <div className="md:hidden bg-background border-t border-border">
+          <div className="md:hidden border-t border-white/10" style={{ background: 'hsl(215, 40%, 10%)' }}>
             <div className="px-6 py-4 space-y-3">
-              <Link to="/" className="block text-foreground hover:text-accent transition-colors">
+              <Link to="/" className="block text-white hover:text-[hsl(18,55%,55%)] transition-colors">
                 Home
               </Link>
-              <Link to="/ai-services" className="block text-foreground hover:text-accent transition-colors">
+              <Link to="/ai-services" className="block text-white hover:text-[hsl(18,55%,55%)] transition-colors">
                 AI Services
               </Link>
-              <Link to="/contact" className="block text-foreground hover:text-accent transition-colors">
+              <Link to="/contact" className="block text-white hover:text-[hsl(18,55%,55%)] transition-colors">
                 Contact
               </Link>
             </div>
@@ -128,13 +123,14 @@ export default function VideoPage() {
       </nav>
 
       {/* Main Content */}
-      <main className="pt-24 pb-16 md:pt-32 md:pb-24">
-        <div className="max-w-5xl mx-auto px-6 lg:px-8">
-          <motion.div {...fadeIn} className="text-center mb-10">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-light text-foreground leading-tight mb-4">
-              Optimize Delivery Systems
+      <main className="pt-32 pb-section">
+        <div className="max-content max-w-5xl">
+          <motion.div {...fadeIn} className="text-center mb-16">
+            <span className="micro-label block mb-6 text-white/50">Resources</span>
+            <h1 className="headline text-white mb-8" style={{ fontSize: 'clamp(2.5rem, 7vw, 4rem)' }}>
+              OPTIMIZE DELIVERY SYSTEMS
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="body-narrow text-white/60 mx-auto">
               See how Flowency helps organisations achieve better flow, reduce waste, and deliver more value.
             </p>
           </motion.div>
@@ -224,36 +220,38 @@ export default function VideoPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-center mt-12"
+            className="text-center mt-20"
           >
-            <p className="text-muted-foreground mb-6">
+            <div className="divider-line mb-12" />
+            <p className="headline-tertiary text-white mb-6">
               Ready to optimise your delivery systems?
             </p>
             <Link
               to="/contact"
-              className="inline-block px-8 py-3 text-sm font-medium text-accent-foreground bg-accent hover:bg-accent/90 transition-colors rounded"
+              className="inline-flex items-center gap-2 font-semibold text-[hsl(18,55%,55%)] text-lg hover:gap-3 transition-all"
             >
               Get in Touch
+              <span>→</span>
             </Link>
           </motion.div>
         </div>
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-border py-8">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+      <footer className="border-t border-white/10 py-8">
+        <div className="max-content">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-white/50">
               © {new Date().getFullYear()} Flowency. All rights reserved.
             </p>
             <div className="flex gap-6">
-              <Link to="/privacy-policy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <Link to="/privacy-policy" className="text-sm text-white/50 hover:text-white transition-colors">
                 Privacy
               </Link>
-              <Link to="/terms-of-use" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <Link to="/terms-of-use" className="text-sm text-white/50 hover:text-white transition-colors">
                 Terms
               </Link>
-              <Link to="/cookie-policy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <Link to="/cookie-policy" className="text-sm text-white/50 hover:text-white transition-colors">
                 Cookies
               </Link>
             </div>

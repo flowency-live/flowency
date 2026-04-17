@@ -1,10 +1,163 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "wouter";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { ThemeToggle } from "@/components/ThemeToggle";
+// Section components available but using custom layouts for better rhythm
+
+// Flowing Energy Streams - Luminous ribbons representing flow
+function FlowingStreams() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, 80]);
+
+  return (
+    <div ref={containerRef} className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Background atmospheric glow */}
+      <div
+        className="absolute right-0 top-1/4 w-[80vw] h-[80vh]"
+        style={{
+          background: 'radial-gradient(ellipse at 70% 40%, rgba(200,120,80,0.15) 0%, rgba(200,100,60,0.08) 30%, transparent 60%)',
+          filter: 'blur(60px)',
+        }}
+      />
+
+      {/* SVG Flowing Streams */}
+      <svg
+        className="absolute right-0 top-0 w-full h-full"
+        viewBox="0 0 1200 800"
+        preserveAspectRatio="xMidYMid slice"
+      >
+        <defs>
+          {/* Gradient for primary stream */}
+          <linearGradient id="streamGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="rgba(200,120,80,0)" />
+            <stop offset="20%" stopColor="rgba(200,120,80,0.6)" />
+            <stop offset="50%" stopColor="rgba(220,140,90,0.8)" />
+            <stop offset="80%" stopColor="rgba(200,120,80,0.6)" />
+            <stop offset="100%" stopColor="rgba(200,120,80,0)" />
+          </linearGradient>
+
+          {/* Gradient for secondary stream */}
+          <linearGradient id="streamGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="rgba(180,100,70,0)" />
+            <stop offset="30%" stopColor="rgba(180,100,70,0.4)" />
+            <stop offset="70%" stopColor="rgba(200,110,75,0.5)" />
+            <stop offset="100%" stopColor="rgba(180,100,70,0)" />
+          </linearGradient>
+
+          {/* Gradient for tertiary stream */}
+          <linearGradient id="streamGradient3" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="rgba(160,90,60,0)" />
+            <stop offset="40%" stopColor="rgba(160,90,60,0.3)" />
+            <stop offset="60%" stopColor="rgba(180,100,70,0.35)" />
+            <stop offset="100%" stopColor="rgba(160,90,60,0)" />
+          </linearGradient>
+
+          {/* Glow filter */}
+          <filter id="streamGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="8" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        {/* Primary flowing stream - bold, front */}
+        <motion.path
+          d="M -100,350 C 200,320 400,420 600,380 S 900,300 1100,350 S 1400,400 1600,350"
+          fill="none"
+          stroke="url(#streamGradient1)"
+          strokeWidth="4"
+          strokeLinecap="round"
+          filter="url(#streamGlow)"
+          style={{ y: y1 }}
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ duration: 2, ease: "easeOut" }}
+        />
+
+        {/* Secondary stream - softer, behind */}
+        <motion.path
+          d="M -50,280 C 250,250 450,350 700,300 S 950,220 1150,280 S 1350,340 1550,290"
+          fill="none"
+          stroke="url(#streamGradient2)"
+          strokeWidth="3"
+          strokeLinecap="round"
+          filter="url(#streamGlow)"
+          style={{ y: y2 }}
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ duration: 2.5, ease: "easeOut", delay: 0.3 }}
+        />
+
+        {/* Tertiary stream - subtle, far back */}
+        <motion.path
+          d="M 0,450 C 300,480 500,380 750,430 S 1000,500 1200,440 S 1400,380 1600,430"
+          fill="none"
+          stroke="url(#streamGradient3)"
+          strokeWidth="2"
+          strokeLinecap="round"
+          filter="url(#streamGlow)"
+          style={{ y: y3 }}
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ duration: 3, ease: "easeOut", delay: 0.6 }}
+        />
+
+        {/* Additional thin accent streams */}
+        <motion.path
+          d="M 100,380 C 350,350 550,430 800,390 S 1050,320 1300,380"
+          fill="none"
+          stroke="rgba(220,150,100,0.25)"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 3.5, ease: "easeOut", delay: 0.8 }}
+        />
+      </svg>
+
+      {/* Bokeh particles */}
+      {[...Array(20)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute rounded-full"
+          style={{
+            width: 3 + (i % 5) * 2,
+            height: 3 + (i % 5) * 2,
+            background: `radial-gradient(circle, rgba(${220 + (i % 3) * 10}, ${130 + (i % 4) * 10}, ${90 + (i % 3) * 10}, ${0.6 + (i % 3) * 0.15}) 0%, transparent 70%)`,
+            right: `${10 + (i * 4.2) % 50}%`,
+            top: `${15 + (i * 3.7) % 70}%`,
+            filter: 'blur(1px)',
+          }}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{
+            opacity: [0.4, 0.8, 0.4],
+            scale: [1, 1.2, 1],
+            y: [0, -15, 0],
+            x: [0, (i % 2 === 0 ? 8 : -8), 0],
+          }}
+          transition={{
+            duration: 4 + (i % 3),
+            repeat: Infinity,
+            delay: i * 0.2,
+            ease: "easeInOut"
+          }}
+        />
+      ))}
+    </div>
+  );
+}
 
 // Dictionary Card Component - styled like physical business card
 function DictionaryCard() {
@@ -46,6 +199,18 @@ function DictionaryCard() {
 
 export default function LandingPageV2() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (window.scrollY / totalHeight) * 100;
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -78,8 +243,16 @@ export default function LandingPageV2() {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Scroll Progress Indicator */}
+      <div className="fixed top-0 left-0 right-0 h-1 z-[60]">
+        <div
+          className="h-full bg-gradient-to-r from-[hsl(18,55%,50%)] to-[hsl(18,65%,60%)]"
+          style={{ width: `${scrollProgress}%`, transition: 'width 0.1s ease-out' }}
+        />
+      </div>
+
       {/* Navigation - Full-width style with centered links */}
-      <nav className="fixed top-0 w-full bg-background/98 backdrop-blur-sm z-50 border-b border-border">
+      <nav className="fixed top-1 w-full bg-background z-50 border-b border-border">
         <div className="flex items-center justify-between h-16 px-6 lg:px-12">
           {/* Logo - Left */}
           <Link to="/" className="flex-shrink-0">
@@ -98,10 +271,10 @@ export default function LandingPageV2() {
           </Link>
 
           {/* Nav Links - Center */}
-          <div className="hidden md:flex items-center gap-8">
-            <a href="#approach" className="text-sm text-muted-foreground hover:text-foreground transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-foreground after:transition-all after:duration-300">Approach</a>
-            <a href="#services" className="text-sm text-muted-foreground hover:text-foreground transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-foreground after:transition-all after:duration-300">Services</a>
-            <Link to="/ai-services" className="text-sm text-muted-foreground hover:text-foreground transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-foreground after:transition-all after:duration-300">AI-DLC</Link>
+          <div className="hidden md:flex items-center gap-12">
+            <a href="#approach" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-foreground after:transition-all after:duration-300">Approach</a>
+            <a href="#services" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-foreground after:transition-all after:duration-300">Services</a>
+            <Link to="/ai-services" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-foreground after:transition-all after:duration-300">AI-DLC</Link>
           </div>
 
           {/* Theme Toggle & CTA - Right */}
@@ -109,7 +282,7 @@ export default function LandingPageV2() {
             <ThemeToggle />
             <Link
               to="/contact"
-              className="px-5 py-2 text-sm font-medium text-accent-foreground bg-accent hover:bg-accent/90 transition-colors rounded-md"
+              className="px-5 py-2.5 text-base font-medium text-accent-foreground bg-accent hover:bg-accent/90 transition-colors rounded-md"
             >
               Contact
             </Link>
@@ -122,21 +295,21 @@ export default function LandingPageV2() {
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-foreground hover:text-accent transition-colors p-2"
             >
-              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
 
         {isMenuOpen && (
           <div className="md:hidden bg-background border-t border-border">
-            <div className="px-6 py-4 space-y-3">
-              <a href="#approach" className="block text-sm text-muted-foreground hover:text-foreground">Approach</a>
-              <a href="#services" className="block text-sm text-muted-foreground hover:text-foreground">Services</a>
-              <Link to="/ai-services" className="block text-sm text-muted-foreground hover:text-foreground">AI-DLC</Link>
+            <div className="px-6 py-4 space-y-4">
+              <a href="#approach" className="block text-base font-medium text-muted-foreground hover:text-foreground">Approach</a>
+              <a href="#services" className="block text-base font-medium text-muted-foreground hover:text-foreground">Services</a>
+              <Link to="/ai-services" className="block text-base font-medium text-muted-foreground hover:text-foreground">AI-DLC</Link>
               <Link
                 to="/contact"
                 onClick={() => setIsMenuOpen(false)}
-                className="block text-sm text-accent font-medium"
+                className="block text-base text-accent font-semibold"
               >
                 Contact
               </Link>
@@ -155,71 +328,176 @@ export default function LandingPageV2() {
         structuredData={structuredData}
       />
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 md:pt-40 md:pb-28 bg-background">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <motion.div {...fadeIn}>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-foreground leading-[1.1] mb-6">
-                Building organisations<br />
-                that <span className="font-semibold">flow</span>
-              </h1>
-              <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-lg">
-                Delivery optimisation. Capability uplift. Real results.
-              </p>
-              <Link
-                to="/contact"
-                className="inline-block px-6 py-3 text-base font-medium text-accent-foreground bg-accent hover:bg-accent/90 transition-colors rounded"
-              >
-                Start a conversation
-              </Link>
-            </motion.div>
+      {/* Hero Section - Dark with flowing energy streams */}
+      <section className="section-gradient-hero pt-40 pb-24 md:pt-48 min-h-[90vh] flex items-center relative overflow-hidden">
+        {/* Flowing energy streams visual */}
+        <FlowingStreams />
 
-            <motion.div {...fadeIn} className="hidden lg:flex justify-end">
+        <div className="max-content relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="space-y-8 max-w-3xl"
+          >
+            <h1 className="headline text-white" style={{ fontSize: 'clamp(4rem, 12vw, 8rem)', lineHeight: 0.9 }}>
+              <span className="block">BUILDING</span>
+              <span className="block">ORGANISATIONS</span>
+              <span className="block text-white/50">THAT FLOW</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-white/70 max-w-lg">
+              Delivery optimisation. Capability uplift. Real results.
+            </p>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-3 text-lg font-semibold text-white border-b-2 border-white/30 pb-1 hover:border-white transition-colors"
+            >
+              Start a conversation
+              <span className="text-xl">→</span>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Definition + Statement Section - Side by Side */}
+      <section className="section-dark py-16">
+        <div className="max-content">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
               <DictionaryCard />
             </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="headline-secondary text-white text-center lg:text-left"
+            >
+              Digital transformation without the theatre.
+            </motion.p>
           </div>
         </div>
       </section>
 
-      {/* Anti-Theatre Statement */}
-      <section className="py-12 md:py-16 bg-muted/40">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-          <motion.div {...fadeIn}>
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-              Digital transformation without the theatre.
-            </h2>
-          </motion.div>
+      {/* Numbered Band - Core Values (Accent Band) */}
+      <section className="section-band-accent py-0">
+        <div className="max-content">
+          <div className="band-numbered">
+            {[
+              { num: "01", label: "Framework Agnostic" },
+              { num: "02", label: "Method Diverse" },
+              { num: "03", label: "AI-Aware" },
+              { num: "04", label: "Value Focused" },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                className="band-numbered-item"
+              >
+                <div className="band-number text-white">{item.num}</div>
+                <div className="band-label text-white/80">{item.label}</div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Our Approach Section */}
-      <section id="approach" className="py-20 md:py-28 bg-muted/40">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
-          <motion.div {...fadeIn} className="text-center mb-12">
-            <div className="inline-block bg-primary text-primary-foreground px-6 py-2.5 rounded-full text-base font-medium mb-6">
-              <span className="text-accent">Adaptive</span> Delivery
+      {/* Our Approach Section (Dark) */}
+      <section id="approach" className="section-dark section-spacing-lg">
+        {/* Editorial two-column layout */}
+        <div className="max-w-6xl mx-auto px-6">
+          <motion.div {...fadeIn} className="mb-12">
+            {/* Header row */}
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-16 items-start">
+              {/* Left column - Title block */}
+              <div>
+                {/* Two-tone pill badge */}
+                <div className="inline-flex items-center rounded-full border border-white/20 px-4 py-1.5 mb-8">
+                  <span className="text-sm font-medium text-white/70">Adaptive</span>
+                  <span className="text-sm font-medium text-accent ml-1">Delivery</span>
+                </div>
+
+                <h2 className="headline-secondary text-white mb-6">
+                  Our Approach
+                </h2>
+                <p className="text-lg text-white/50">
+                  Framework agnostic, method diverse, AI-aware, value focused.
+                </p>
+              </div>
+
+              {/* Right column - Body text split into two paragraphs */}
+              <div className="lg:pt-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <p className="text-base text-white/60 leading-relaxed">
+                    Our adaptive delivery approach is framework agnostic and method diverse, drawing from the best bits of agile, lean, waterfall and JFDI - combined with years of experience and hard earned insights.
+                  </p>
+                  <p className="text-base text-white/60 leading-relaxed">
+                    What makes us different? We apply the most contextually relevant solutions for your specific organisational context and maturity. As AI reshapes how work flows through organisations, this contextual adaptation expertise becomes your competitive advantage.
+                  </p>
+                </div>
+              </div>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Our Approach
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              Framework agnostic, method diverse, AI-aware, value focused.
-            </p>
-            <p className="text-base md:text-lg text-foreground max-w-4xl mx-auto leading-relaxed mb-8">
-              Our adaptive delivery approach is framework agnostic and method diverse, drawing from the best bits of agile, lean, waterfall and JFDI - combined with years of experience and hard earned insights. What makes us different? We apply the most contextually relevant solutions for your specific organisational context and maturity, whether that's optimising product delivery or transforming workflows across HR, customer service, and financial processes. As AI reshapes how work flows through organisations, this contextual adaptation expertise becomes your competitive advantage.
-            </p>
           </motion.div>
+        </div>
 
-          {/* Quote Block */}
-          <motion.div {...fadeIn} className="bg-primary text-primary-foreground p-8 rounded max-w-4xl mx-auto mb-12 text-center">
-            <p className="text-lg md:text-xl font-semibold">
-              We won't tell you the way - we help you find <span className="text-accent">YOUR</span> way.
+        {/* Quote Block - Charcoal band, editorial feel */}
+        <motion.div
+          {...fadeIn}
+          className="relative py-12 mb-12 overflow-hidden"
+          style={{
+            background: 'hsl(215, 35%, 18%)',
+            marginLeft: 'calc(-50vw + 50%)',
+            marginRight: 'calc(-50vw + 50%)',
+            width: '100vw'
+          }}
+        >
+          {/* Subtle top edge */}
+          <div className="absolute top-0 left-0 right-0 h-px bg-white/10" />
+
+          {/* Diverging pathways background - representing "finding YOUR way" */}
+          <svg
+            className="absolute inset-0 w-full h-full opacity-20"
+            viewBox="0 0 1200 200"
+            preserveAspectRatio="xMidYMid slice"
+          >
+            <defs>
+              <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="rgba(200,120,80,0)" />
+                <stop offset="50%" stopColor="rgba(200,120,80,0.8)" />
+                <stop offset="100%" stopColor="rgba(200,120,80,0)" />
+              </linearGradient>
+            </defs>
+            {/* Central origin point, paths diverging */}
+            <path d="M 600,100 C 400,100 300,60 100,50" stroke="url(#pathGradient)" strokeWidth="2" fill="none" />
+            <path d="M 600,100 C 400,100 300,140 100,150" stroke="url(#pathGradient)" strokeWidth="2" fill="none" />
+            <path d="M 600,100 C 800,100 900,40 1100,30" stroke="url(#pathGradient)" strokeWidth="2" fill="none" />
+            <path d="M 600,100 C 800,100 900,160 1100,170" stroke="url(#pathGradient)" strokeWidth="2" fill="none" />
+            {/* Subtle middle paths */}
+            <path d="M 600,100 C 450,95 350,80 150,85" stroke="rgba(200,120,80,0.3)" strokeWidth="1" fill="none" />
+            <path d="M 600,100 C 450,105 350,120 150,115" stroke="rgba(200,120,80,0.3)" strokeWidth="1" fill="none" />
+            <path d="M 600,100 C 750,95 850,70 1050,60" stroke="rgba(200,120,80,0.3)" strokeWidth="1" fill="none" />
+            <path d="M 600,100 C 750,105 850,130 1050,140" stroke="rgba(200,120,80,0.3)" strokeWidth="1" fill="none" />
+          </svg>
+
+          <div className="max-w-4xl mx-auto text-center px-6 relative z-10">
+            <p className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight tracking-tight">
+              We won't tell you the way - we help you find <span className="text-[hsl(18,55%,60%)] drop-shadow-[0_0_10px_rgba(200,120,80,0.5)]">YOUR</span> way.
             </p>
-          </motion.div>
+          </div>
+        </motion.div>
 
-          {/* 6-Point Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        {/* Approach Points - Wider than text block, uniform lattice */}
+        <div className="max-w-[76rem] mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.15]">
             {[
               { title: "Framework agnostic solutions", desc: "Adapt to your existing methodologies" },
               { title: "Method diverse expertise", desc: "Drawing from agile, lean, and beyond" },
@@ -230,86 +508,99 @@ export default function LandingPageV2() {
             ].map((item, i) => (
               <motion.div
                 key={i}
-                {...fadeIn}
-                className="bg-card p-5 rounded border border-border"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05, duration: 0.4 }}
+                className="p-9 bg-[hsl(215,40%,12%)]"
               >
-                <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center mb-3">
-                  <svg className="w-4 h-4 text-accent-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <h4 className="font-semibold text-card-foreground mb-1">{item.title}</h4>
-                <p className="text-sm text-muted-foreground">{item.desc}</p>
+                <h4 className="text-xl font-semibold text-white mb-2">{item.title}</h4>
+                <p className="text-sm text-white/55">{item.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="services" className="py-20 md:py-28 bg-background">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
-          <motion.div {...fadeIn} className="text-center mb-12">
-            <div className="inline-block bg-primary text-primary-foreground px-4 py-2 rounded-full text-sm font-medium mb-6">
-              Our Services
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              How We Help You Achieve <span className="text-accent">Flow</span>
+      {/* Pause Section - Light Reset */}
+      <section className="section-light section-statement">
+        <div className="max-content">
+          <div className="divider-line mb-12" />
+          <motion.p
+            {...fadeIn}
+            className="text-xl md:text-2xl text-gray-600 text-center max-w-3xl mx-auto"
+          >
+            We start with friction. Then apply method, intelligence, and capability to turn flow into value.
+          </motion.p>
+        </div>
+      </section>
+
+      {/* Services Section (Dark) */}
+      <section id="services" className="section-dark section-spacing-lg">
+        <div className="max-content">
+          <motion.div {...fadeIn} className="mb-12">
+            <span className="micro-label block mb-4 text-white/50">Our Services</span>
+            <h2 className="headline-secondary text-white mb-8">
+              HOW WE HELP YOU ACHIEVE <span className="text-[hsl(18,55%,55%)]">FLOW</span>
             </h2>
-            <p className="text-lg text-foreground font-medium mb-4 max-w-3xl mx-auto">
-              We start with friction. Then apply method, intelligence, and capability to turn flow into value.
-            </p>
-            <p className="text-base text-muted-foreground max-w-3xl mx-auto">
+            <p className="body-narrow text-white/70 max-w-2xl">
               Four core service areas designed to transform your delivery capabilities and drive lasting organisational change across all departments.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <motion.div {...fadeIn} className="bg-card rounded p-8 border border-border">
-              <div className="w-12 h-12 bg-primary rounded flex items-center justify-center mb-6">
-                <svg className="w-6 h-6 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-card-foreground mb-3">Work System Optimisation</h3>
-              <p className="text-muted-foreground leading-relaxed">
+          <div className="cards-numbered grid grid-cols-1 md:grid-cols-2 gap-0 border border-white/10">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="p-10 border-b md:border-b-0 md:border-r border-white/10 relative"
+            >
+              <span className="number-accent text-white/20">01</span>
+              <h3 className="headline-tertiary text-white mb-4 relative z-10">Work System Optimisation</h3>
+              <p className="body-text text-white/60 relative z-10">
                 Streamline delivery systems, operational workflows, and cross-departmental processes. Includes our IntentOps framework for managing cognitive debt as AI adoption accelerates. Draws on Actuate to embed automation where it delivers measurable results - whether in product delivery, HR, finance, or customer operations.
               </p>
             </motion.div>
 
-            <motion.div {...fadeIn} className="bg-card rounded p-8 border border-border">
-              <div className="w-12 h-12 bg-accent rounded flex items-center justify-center mb-6">
-                <svg className="w-6 h-6 text-accent-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-card-foreground mb-3">Value Outcome Leadership</h3>
-              <p className="text-muted-foreground leading-relaxed">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="p-10 border-b border-white/10 relative"
+            >
+              <span className="number-accent text-white/20">02</span>
+              <h3 className="headline-tertiary text-white mb-4 relative z-10">Value Outcome Leadership</h3>
+              <p className="body-text text-white/60 relative z-10">
                 Focus on measurable business outcomes across all departments, not just product delivery. Drive strategic alignment and demonstrate tangible ROI whether optimising development pipelines or automating customer support workflows.
               </p>
             </motion.div>
 
-            <motion.div {...fadeIn} className="bg-card rounded p-8 border border-border">
-              <div className="w-12 h-12 bg-primary rounded flex items-center justify-center mb-6">
-                <svg className="w-6 h-6 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-card-foreground mb-3">AI-Enabled Process Design</h3>
-              <p className="text-muted-foreground leading-relaxed">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="p-10 md:border-r border-white/10 relative"
+            >
+              <span className="number-accent text-white/20">03</span>
+              <h3 className="headline-tertiary text-white mb-4 relative z-10">AI-Enabled Process Design</h3>
+              <p className="body-text text-white/60 relative z-10">
                 Apply proven delivery optimisation principles to any workflow being transformed by AI. From customer service automation to financial reporting, we help you redesign processes that combine human judgement with intelligent automation.
               </p>
             </motion.div>
 
-            <motion.div {...fadeIn} className="bg-card rounded p-8 border border-border">
-              <div className="w-12 h-12 bg-secondary rounded flex items-center justify-center mb-6">
-                <svg className="w-6 h-6 text-secondary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-card-foreground mb-3">Organisational Flow Intelligence</h3>
-              <p className="text-muted-foreground leading-relaxed">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="p-10 relative"
+            >
+              <span className="number-accent text-white/20">04</span>
+              <h3 className="headline-tertiary text-white mb-4 relative z-10">Organisational Flow Intelligence</h3>
+              <p className="body-text text-white/60 relative z-10">
                 Implement systems that provide visibility into work flow across your entire organisation. As AI creates new bottlenecks and opportunities, make the invisible visible across every department and workflow.
               </p>
             </motion.div>
@@ -317,115 +608,243 @@ export default function LandingPageV2() {
         </div>
       </section>
 
-      {/* How We Deliver Results */}
-      <section className="py-20 md:py-28 bg-muted/40">
-        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+      {/* How We Deliver Results - Deep Dark Section */}
+      <section className="section-dark-deep py-0 relative overflow-hidden">
+        {/* Flowing process line in background */}
+        <svg
+          className="absolute top-1/2 left-0 w-full h-32 -translate-y-1/2 pointer-events-none hidden md:block"
+          viewBox="0 0 1200 100"
+          preserveAspectRatio="none"
+        >
+          <defs>
+            <linearGradient id="processGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="rgba(200,120,80,0.1)" />
+              <stop offset="20%" stopColor="rgba(200,120,80,0.4)" />
+              <stop offset="50%" stopColor="rgba(220,140,90,0.5)" />
+              <stop offset="80%" stopColor="rgba(200,120,80,0.4)" />
+              <stop offset="100%" stopColor="rgba(200,120,80,0.1)" />
+            </linearGradient>
+          </defs>
+          <motion.path
+            d="M 0,50 C 150,30 250,70 400,50 S 550,30 600,50 S 750,70 800,50 S 950,30 1050,50 S 1150,70 1200,50"
+            fill="none"
+            stroke="url(#processGradient)"
+            strokeWidth="2"
+            initial={{ pathLength: 0 }}
+            whileInView={{ pathLength: 1 }}
+            transition={{ duration: 2, ease: "easeOut" }}
+            viewport={{ once: true }}
+          />
+        </svg>
+
+        <div className="py-20 text-center relative z-10">
+          <motion.h2 {...fadeIn} className="headline-secondary text-white mb-4">
+            HOW WE DELIVER RESULTS
+          </motion.h2>
+          <motion.p {...fadeIn} className="text-white/50">Our proven three-step methodology</motion.p>
+        </div>
+
+        <div className="max-content relative z-10">
+          <div className="band-numbered border-t border-white/10">
+            {[
+              { num: "01", label: "Visualise", desc: "Make your delivery system visible" },
+              { num: "02", label: "Optimise", desc: "Eliminate waste, create smooth value flow" },
+              { num: "03", label: "Sustain", desc: "Build lasting internal capability" },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.15, duration: 0.5 }}
+                className="band-numbered-item py-12"
+              >
+                <div className="band-number text-white">{item.num}</div>
+                <div className="band-label text-white mb-2">{item.label}</div>
+                <p className="text-sm text-white/50 max-w-[200px] mx-auto">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        <div className="py-16 text-center">
+          <motion.p {...fadeIn} className="body-narrow text-white/60 mx-auto max-w-3xl px-6">
+            We start where you are, bring clarity and stability, and optimise from there. When you're ready, we activate the tools, automation, and intelligence to take you further.
+          </motion.p>
+        </div>
+      </section>
+
+      {/* Flow Domains - Dark Section */}
+      <section className="section-dark section-spacing-lg">
+        <div className="max-content">
           <motion.div {...fadeIn} className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              How We Deliver Results
+            <h2 className="headline-secondary text-white">
+              FLUENT IN FLOW.<br />APPLIED WHERE IT MATTERS.
             </h2>
-            <p className="text-lg text-muted-foreground">Our proven three-step methodology</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            <motion.div {...fadeIn} className="text-center bg-card p-6 rounded border border-border">
-              <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-card-foreground mb-3">Visualise</h3>
-              <p className="text-muted-foreground">
-                Make your delivery system visible and understand the current state of flow across all levels.
-              </p>
-            </motion.div>
-
-            <motion.div {...fadeIn} className="text-center bg-card p-6 rounded border border-border">
-              <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-card-foreground mb-3">Optimise</h3>
-              <p className="text-muted-foreground">
-                Identify bottlenecks, eliminate waste, and create smooth value flow throughout your organisation.
-              </p>
-            </motion.div>
-
-            <motion.div {...fadeIn} className="text-center bg-card p-6 rounded border border-border">
-              <div className="w-16 h-16 bg-[hsl(var(--flow-blue-dark))] rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-card-foreground mb-3">Sustain</h3>
-              <p className="text-muted-foreground">
-                Build internal capability and ensure continuous improvement becomes part of your organisational DNA.
-              </p>
-            </motion.div>
+          {/* Three columns with visual weight */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-white/10 mb-12">
+            {[
+              { title: "Delivery Flow", desc: "Focused execution, faster throughput, reduced WIP", num: "01" },
+              { title: "Flow Economics", desc: "Value-centred prioritisation and cost-of-delay insight", num: "02" },
+              { title: "Team Flow", desc: "Adaptive collaboration across complex systems", num: "03" },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                className={`p-10 text-center ${i < 2 ? 'border-b md:border-b-0 md:border-r border-white/10' : ''}`}
+              >
+                {/* Large number with glowing circle */}
+                <div className="relative w-28 h-28 md:w-36 md:h-36 mb-6 mx-auto">
+                  {/* Outer glow layer */}
+                  <div className="absolute inset-0 rounded-full"
+                       style={{
+                         border: '2px solid hsl(18, 55%, 55%)',
+                         boxShadow: '0 0 25px 5px rgba(200,120,80,0.5), 0 0 50px 10px rgba(200,120,80,0.3), inset 0 0 20px rgba(200,120,80,0.2)'
+                       }}
+                  />
+                  {/* Single large digit */}
+                  <span className="absolute inset-0 flex items-center justify-center text-white font-black"
+                        style={{ fontSize: '5rem', lineHeight: 1 }}>
+                    {i + 1}
+                  </span>
+                </div>
+                <h3 className="headline-tertiary text-white mb-3">{item.title}</h3>
+                <p className="body-text text-sm text-white/60">{item.desc}</p>
+              </motion.div>
+            ))}
           </div>
 
+          {/* Impact statement */}
           <motion.div {...fadeIn} className="text-center">
-            <p className="text-lg text-muted-foreground max-w-4xl mx-auto">
-              We start where you are, bring clarity and stability, and optimise from there. When you're ready, we activate the tools, automation, and intelligence to take you further.
+            <p className="headline-tertiary text-white mb-4">Immediate impact and sticky change.</p>
+            <p className="body-narrow text-white/60 mx-auto max-w-2xl">
+              We deliver sustainable improvements that reduce lead times, increase value throughput, and align delivery to what matters.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Flow Domains */}
-      <section className="py-20 md:py-28 bg-background">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
-          <motion.div {...fadeIn} className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8">
-              Fluent in FLOW. Applied where it matters.
+      {/* DOMINANT CTA Section - Accent Band with Aurora */}
+      <section className="section-band-accent py-20 relative overflow-hidden">
+        {/* Aurora-style animated background */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Primary aurora wave */}
+          <motion.div
+            className="absolute inset-0"
+            style={{
+              background: 'radial-gradient(ellipse at 30% 0%, rgba(255,180,120,0.3) 0%, transparent 50%)',
+            }}
+            animate={{
+              opacity: [0.5, 0.8, 0.5],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          {/* Secondary aurora wave */}
+          <motion.div
+            className="absolute inset-0"
+            style={{
+              background: 'radial-gradient(ellipse at 70% 100%, rgba(220,140,80,0.25) 0%, transparent 60%)',
+            }}
+            animate={{
+              opacity: [0.4, 0.7, 0.4],
+              scale: [1.1, 1, 1.1],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2
+            }}
+          />
+          {/* Flowing energy streams */}
+          <svg className="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice">
+            <motion.path
+              d="M -100,200 C 200,150 400,250 600,200 S 900,100 1100,180 S 1400,250 1600,200"
+              fill="none"
+              stroke="rgba(255,200,150,0.5)"
+              strokeWidth="2"
+              initial={{ pathLength: 0 }}
+              whileInView={{ pathLength: 1 }}
+              transition={{ duration: 2, ease: "easeOut" }}
+              viewport={{ once: true }}
+            />
+            <motion.path
+              d="M -50,280 C 250,320 450,220 700,270 S 950,350 1150,290"
+              fill="none"
+              stroke="rgba(255,180,130,0.4)"
+              strokeWidth="1.5"
+              initial={{ pathLength: 0 }}
+              whileInView={{ pathLength: 1 }}
+              transition={{ duration: 2.5, ease: "easeOut", delay: 0.3 }}
+              viewport={{ once: true }}
+            />
+          </svg>
+          {/* Floating particles */}
+          {[...Array(12)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute rounded-full"
+              style={{
+                width: 4 + (i % 4) * 2,
+                height: 4 + (i % 4) * 2,
+                background: `rgba(255, ${200 + (i % 3) * 20}, ${150 + (i % 4) * 20}, ${0.4 + (i % 3) * 0.2})`,
+                left: `${5 + (i * 8) % 90}%`,
+                top: `${10 + (i * 7) % 80}%`,
+              }}
+              animate={{
+                y: [0, -20, 0],
+                opacity: [0.3, 0.7, 0.3],
+              }}
+              transition={{
+                duration: 4 + (i % 3),
+                repeat: Infinity,
+                delay: i * 0.3,
+                ease: "easeInOut"
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="max-content relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
+            <h2 className="headline text-white mb-8" style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)' }}>
+              READY TO IMPROVE<br />HOW WORK FLOWS?
             </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-              <motion.div {...fadeIn} className="bg-card rounded p-6 border border-border hover:border-blue-500/50 transition-colors">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded flex items-center justify-center mb-4 mx-auto">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-bold text-card-foreground mb-2">Delivery Flow</h3>
-                <p className="text-sm text-muted-foreground">Focused execution, faster throughput, reduced WIP</p>
-              </motion.div>
-
-              <motion.div {...fadeIn} className="bg-card rounded p-6 border border-border hover:border-amber-500/50 transition-colors">
-                <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded flex items-center justify-center mb-4 mx-auto">
-                  <span className="text-white font-bold text-xl">£</span>
-                </div>
-                <h3 className="text-lg font-bold text-card-foreground mb-2">Flow Economics</h3>
-                <p className="text-sm text-muted-foreground">Value-centred prioritisation and cost-of-delay insight</p>
-              </motion.div>
-
-              <motion.div {...fadeIn} className="bg-card rounded p-6 border border-border hover:border-emerald-500/50 transition-colors">
-                <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-green-600 rounded flex items-center justify-center mb-4 mx-auto">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-bold text-card-foreground mb-2">Team Flow</h3>
-                <p className="text-sm text-muted-foreground">Adaptive collaboration across complex systems</p>
-              </motion.div>
-            </div>
-
-            <div className="max-w-3xl mx-auto">
-              <p className="text-xl font-semibold text-foreground mb-4">Immediate impact and sticky change.</p>
-              <p className="text-lg text-muted-foreground">
-                We deliver sustainable improvements that reduce lead times, increase value throughput, and align delivery to what matters.
-              </p>
-            </div>
+            <p className="text-xl text-white/80 mb-12">
+              Let's talk.
+            </p>
+            <Link
+              to="/contact"
+              className="inline-flex items-center justify-center gap-3 px-10 py-5 text-lg font-semibold bg-white text-[hsl(18,55%,40%)] hover:bg-white/90 transition-all duration-300"
+            >
+              Get in touch
+              <span className="text-xl">→</span>
+            </Link>
           </motion.div>
         </div>
       </section>
 
       {/* Client Logos - Two rows, opposite directions, colour */}
       {/* Always light background for coloured logos visibility */}
-      <section className="py-12 bg-gray-100 dark:bg-gray-100 border-y border-gray-200">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8 text-center">
-          <p className="text-sm text-gray-600 mb-6">Organisations we've helped move faster</p>
+      <section className="py-16 bg-gray-100 dark:bg-gray-100 border-y border-gray-200">
+        <div className="max-content text-center">
+          <p className="micro-label text-gray-600 mb-8">Organisations we've helped move faster</p>
 
           {/* Row 1 - Left to right */}
           <div className="relative overflow-hidden py-2 mb-4">
@@ -469,11 +888,7 @@ export default function LandingPageV2() {
         </div>
       </section>
 
-      <Footer
-        ctaText="Ready to improve how work flows?"
-        ctaDescription="Let's talk."
-        ctaButtonText="Get in touch"
-      />
+      <Footer />
     </div>
   );
 }

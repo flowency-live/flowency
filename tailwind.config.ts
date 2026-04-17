@@ -5,10 +5,32 @@ export default {
   content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      spacing: {
+        // Editorial spacing scale (8 / 16 / 24 / 32 / 48 / 64 / 96 / 128)
+        'section': '8rem',      // 128px - between sections
+        'section-lg': '10rem',  // 160px - large section gaps
+        'section-sm': '6rem',   // 96px - smaller section gap
+        'internal': '2rem',     // 32px - within sections
+        'internal-sm': '1rem',  // 16px - tight internal
+        '18': '4.5rem',         // 72px
+        '22': '5.5rem',         // 88px
+      },
+      maxWidth: {
+        'content': '1200px',
+        'narrow': '65ch',
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      fontSize: {
+        // Editorial typography scale
+        'display': ['clamp(3.5rem, 8vw, 4.5rem)', { lineHeight: '0.95', letterSpacing: '-0.02em' }],
+        'heading': ['clamp(2.25rem, 5vw, 3rem)', { lineHeight: '1.1', letterSpacing: '-0.01em' }],
+        'subheading': ['clamp(1.5rem, 3vw, 1.75rem)', { lineHeight: '1.2' }],
+        'body-lg': ['clamp(1rem, 1.2vw, 1.125rem)', { lineHeight: '1.6' }],
+        'micro': ['0.75rem', { lineHeight: '1.4', letterSpacing: '0.1em' }],
       },
       colors: {
         background: "hsl(var(--background))",
@@ -41,7 +63,12 @@ export default {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
+        electric: {
+          DEFAULT: "hsl(var(--electric))",
+          foreground: "hsl(var(--electric-foreground))",
+        },
         border: "hsl(var(--border))",
+        "border-subtle": "hsl(var(--border-subtle))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         chart: {

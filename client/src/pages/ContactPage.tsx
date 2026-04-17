@@ -109,7 +109,7 @@ export default function ContactPage() {
 
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-background/98 backdrop-blur-sm z-50 border-b border-border">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+        <div className="max-content">
           <div className="flex justify-between items-center h-16">
             <Link to="/">
               <img
@@ -171,26 +171,26 @@ export default function ContactPage() {
       </nav>
 
       {/* Main Content */}
-      <main className="pt-24 pb-16 md:pt-32 md:pb-24">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+      <main className="pt-32 pb-section">
+        <div className="max-content">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
             {/* Left Column - Info */}
             <motion.div {...fadeIn} className="lg:col-span-2">
-              <h1 className="text-4xl md:text-5xl font-light text-foreground leading-tight mb-6">
-                Let's talk.
+              <h1 className="headline text-foreground mb-6">
+                LET'S TALK.
               </h1>
-              <p className="text-lg text-muted-foreground leading-relaxed mb-10">
+              <p className="body-narrow text-muted-foreground mb-12">
                 Ready to improve how work flows through your organisation? We'd love to hear from you.
               </p>
 
-              <div className="space-y-6">
+              <div className="space-y-8">
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded bg-muted flex items-center justify-center flex-shrink-0">
                     <MapPin className="w-5 h-5 text-muted-foreground" />
                   </div>
                   <div>
-                    <p className="text-foreground font-medium">Registered Office</p>
-                    <p className="text-muted-foreground">
+                    <p className="text-foreground font-medium mb-1">Registered Office</p>
+                    <p className="body-text text-muted-foreground">
                       Bank Chambers, St. Petersgate<br />
                       Stockport, England, SK1 1AR
                     </p>
@@ -202,10 +202,10 @@ export default function ContactPage() {
                     <Mail className="w-5 h-5 text-muted-foreground" />
                   </div>
                   <div>
-                    <p className="text-foreground font-medium">Email</p>
+                    <p className="text-foreground font-medium mb-1">Email</p>
                     <a
                       href="mailto:hello@flowency.co.uk"
-                      className="text-accent hover:text-accent/80 transition-colors"
+                      className="cta-inline"
                     >
                       hello@flowency.co.uk
                     </a>
@@ -217,12 +217,12 @@ export default function ContactPage() {
                     <Linkedin className="w-5 h-5 text-muted-foreground" />
                   </div>
                   <div>
-                    <p className="text-foreground font-medium">LinkedIn</p>
+                    <p className="text-foreground font-medium mb-1">LinkedIn</p>
                     <a
                       href="https://www.linkedin.com/company/flowency/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-accent hover:text-accent/80 transition-colors"
+                      className="cta-inline"
                     >
                       Follow Flowency
                     </a>
@@ -476,7 +476,7 @@ export default function ContactPage() {
 
       {/* Minimal Footer */}
       <footer className="border-t border-border py-8">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+        <div className="max-content">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-sm text-muted-foreground">
               © {new Date().getFullYear()} Flowency. All rights reserved.

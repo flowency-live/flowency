@@ -132,21 +132,23 @@ textarea:focus-visible {
   --foreground: 220 25% 12%;
   --muted: 220 12% 90%;
   --muted-foreground: 220 10% 45%;
+  --muted-strong: 220 15% 35%;
   --popover: 0 0% 100%;
   --popover-foreground: 220 25% 12%;
   --card: 0 0% 100%;
   --card-foreground: 220 25% 12%;
   --border: 220 12% 88%;
+  --border-subtle: 220 10% 92%;
   --input: 220 12% 88%;
 
   /* Brand - DESATURATED for editorial feel */
-  --primary: 215 35% 22%;
+  --primary: 215 30% 18%;
   --primary-foreground: 0 0% 100%;
   --secondary: 215 25% 35%;
   --secondary-foreground: 0 0% 100%;
 
-  /* Single accent - muted terracotta (was 95% sat - too hot) */
-  --accent: 18 55% 50%;
+  /* Single accent - muted terracotta */
+  --accent: 18 50% 48%;
   --accent-foreground: 0 0% 100%;
 
   /* Muted teal for secondary accents only */
@@ -166,12 +168,38 @@ textarea:focus-visible {
   --radius: 0.25rem;
 
   /* Chart colors */
-  --chart-1: 215 35% 22%;
+  --chart-1: 215 30% 18%;
   --chart-2: 215 25% 35%;
-  --chart-3: 18 55% 50%;
+  --chart-3: 18 50% 48%;
   --chart-4: 189 35% 42%;
   --chart-5: 200 35% 55%;
   --chart-6: 0 65% 50%;
+
+  /* Editorial Typography Scale - BOLD & BIG */
+  --font-h1: clamp(4rem, 10vw, 6rem);
+  --font-h2: clamp(2.75rem, 6vw, 4rem);
+  --font-h3: clamp(1.75rem, 3.5vw, 2.25rem);
+  --font-body: clamp(1rem, 1.2vw, 1.125rem);
+  --font-micro: 0.75rem;
+
+  /* Editorial Line Heights */
+  --leading-tight: 0.95;
+  --leading-snug: 1.1;
+  --leading-body: 1.6;
+
+  /* Editorial Spacing Scale - Tightened for better rhythm */
+  --space-section: 5rem;
+  --space-section-lg: 7rem;
+  --space-section-xl: 9rem;
+  --space-internal: 2.5rem;
+  --space-internal-sm: 1.25rem;
+
+  /* DARK-FIRST SYSTEM - Solid colors, not gradients */
+  --color-dark: hsl(215, 40%, 12%);
+  --color-dark-deep: hsl(215, 45%, 8%);
+  --color-band-accent: hsl(18, 55%, 48%);
+  --color-band-teal: hsl(189, 40%, 35%);
+  --color-light: hsl(220, 14%, 96%);
 }
 
 .dark {
@@ -179,11 +207,13 @@ textarea:focus-visible {
   --foreground: 220 10% 95%;
   --muted: 220 20% 15%;
   --muted-foreground: 220 10% 60%;
+  --muted-strong: 220 12% 70%;
   --popover: 220 25% 10%;
   --popover-foreground: 220 10% 95%;
   --card: 220 22% 12%;
   --card-foreground: 220 10% 95%;
   --border: 220 18% 20%;
+  --border-subtle: 220 15% 16%;
   --input: 220 18% 18%;
 
   /* Brand - DESATURATED */
@@ -207,6 +237,11 @@ textarea:focus-visible {
   --warning-foreground: 220 25% 10%;
   --ring: 220 10% 80%;
   --radius: 0.25rem;
+
+  /* Gradient Backgrounds - Flowency Brand Colors (Dark mode) */
+  --gradient-hero: linear-gradient(135deg, hsl(215, 40%, 12%) 0%, hsl(215, 45%, 16%) 50%, hsl(210, 40%, 14%) 100%);
+  --gradient-accent: linear-gradient(135deg, hsl(215, 40%, 14%) 0%, hsl(189, 35%, 20%) 100%);
+  --gradient-cta: linear-gradient(135deg, hsl(18, 55%, 42%) 0%, hsl(18, 50%, 48%) 100%);
 }
 
 @layer base {
@@ -221,6 +256,341 @@ textarea:focus-visible {
 }
 
 @layer components {
+  /* ================================
+     EDITORIAL TYPOGRAPHY SYSTEM
+     ================================ */
+
+  /* Headlines - ALL CAPS, tight line-height, BOLD */
+  .headline {
+    font-size: var(--font-h1);
+    line-height: var(--leading-tight);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+  }
+
+  .headline-secondary {
+    font-size: var(--font-h2);
+    line-height: var(--leading-snug);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+  }
+
+  .headline-tertiary {
+    font-size: var(--font-h3);
+    line-height: var(--leading-snug);
+    font-weight: 700;
+  }
+
+  /* Micro labels - uppercase, light, tracked */
+  .micro-label {
+    font-size: var(--font-micro);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: hsl(var(--muted-strong));
+  }
+
+  /* Body text - narrow width, limited lines */
+  .body-narrow {
+    font-size: var(--font-body);
+    line-height: var(--leading-body);
+    max-width: 65ch;
+  }
+
+  .body-text {
+    font-size: var(--font-body);
+    line-height: var(--leading-body);
+  }
+
+  /* Inline CTA style */
+  .cta-inline {
+    @apply inline-flex items-center gap-2 font-semibold transition-all duration-200;
+    color: hsl(var(--accent));
+  }
+
+  .cta-inline:hover {
+    gap: 0.75rem;
+  }
+
+  .cta-inline::after {
+    content: '→';
+    transition: transform 0.2s ease;
+  }
+
+  .cta-inline:hover::after {
+    transform: translateX(4px);
+  }
+
+  /* ================================
+     SECTION SPACING
+     ================================ */
+
+  .section-spacing {
+    padding-top: var(--space-section);
+    padding-bottom: var(--space-section);
+  }
+
+  .section-spacing-lg {
+    padding-top: var(--space-section-lg);
+    padding-bottom: var(--space-section-lg);
+  }
+
+  .section-spacing-xl {
+    padding-top: var(--space-section-xl);
+    padding-bottom: var(--space-section-xl);
+  }
+
+  .internal-spacing {
+    gap: var(--space-internal);
+  }
+
+  .internal-spacing-sm {
+    gap: var(--space-internal-sm);
+  }
+
+  /* ================================
+     DARK-FIRST SECTION SYSTEM
+     70-80% dark, color as separator
+     ================================ */
+
+  /* DARK SECTIONS - Narrative/thinking (majority of page) */
+  .section-dark {
+    background: var(--color-dark);
+    color: white;
+  }
+
+  .section-dark-deep {
+    background: var(--color-dark-deep);
+    color: white;
+  }
+
+  /* BAND SECTIONS - Structure/list/proof (sparse use) */
+  .section-band-accent {
+    background: var(--color-band-accent);
+    color: white;
+  }
+
+  .section-band-teal {
+    background: var(--color-band-teal);
+    color: white;
+  }
+
+  /* LIGHT SECTIONS - Reset/explanation (sparse use) */
+  .section-light {
+    background: var(--color-light);
+    color: hsl(220, 25%, 12%);
+  }
+
+  /* ================================
+     LEGACY GRADIENT SECTIONS
+     (kept for hero visual interest only)
+     ================================ */
+
+  /* Gradient hero section - dramatic opening */
+  .section-gradient-hero {
+    background: linear-gradient(135deg, var(--color-dark-deep) 0%, var(--color-dark) 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-gradient-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* Gradient CTA section - warm/urgent */
+  .section-gradient-cta {
+    background: var(--color-band-accent);
+    color: white;
+  }
+
+  /* ================================
+     PAUSE / BREATHING SECTIONS
+     ================================ */
+
+  /* Pause section - minimal content, maximum breathing room */
+  .section-pause {
+    padding-top: var(--space-section-xl);
+    padding-bottom: var(--space-section-xl);
+    text-align: center;
+  }
+
+  .section-pause .headline-secondary {
+    margin-bottom: 0;
+  }
+
+  /* Statement section - single powerful line */
+  .section-statement {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    text-align: center;
+  }
+
+  /* ================================
+     BAND SECTIONS - COMPRESSED INFO
+     ================================ */
+
+  /* Numbered band - horizontal strip with numbered items */
+  .band-numbered {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .band-numbered-item {
+    padding: 2.5rem 2rem;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    text-align: center;
+  }
+
+  .band-numbered-item:last-child {
+    border-right: none;
+  }
+
+  .band-number {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+    opacity: 0.6;
+  }
+
+  .band-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ================================
+     VISUAL PACING DEVICES
+     ================================ */
+
+  /* Divider line */
+  .divider-line {
+    width: 80px;
+    height: 2px;
+    background: hsl(var(--accent));
+    margin: 0 auto;
+  }
+
+  /* Divider with text */
+  .divider-text {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .divider-text::before,
+  .divider-text::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.2;
+  }
+
+  /* Large number accent */
+  .number-accent {
+    font-size: 6rem;
+    font-weight: 800;
+    line-height: 0.8;
+    opacity: 0.1;
+    position: absolute;
+    top: -1rem;
+    left: -0.5rem;
+  }
+
+  /* ================================
+     CTA SECTIONS - DOMINANT
+     ================================ */
+
+  .cta-dominant {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  .cta-button-large {
+    @apply inline-flex items-center justify-center gap-3 px-10 py-5 text-lg font-semibold transition-all duration-300;
+    background: hsl(var(--accent));
+    color: white;
+    border-radius: 0;
+  }
+
+  .cta-button-large:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px -10px hsl(var(--accent) / 0.5);
+  }
+
+  /* ================================
+     FLAT CARD STYLE
+     ================================ */
+
+  .card-flat {
+    padding: 2rem;
+    background: transparent;
+    border: 1px solid hsl(var(--border-subtle));
+    position: relative;
+  }
+
+  .card-flat:hover {
+    border-color: hsl(var(--accent) / 0.3);
+  }
+
+  .card-flat-numbered {
+    counter-increment: card-counter;
+  }
+
+  .card-flat-numbered::before {
+    content: counter(card-counter, decimal-leading-zero);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: hsl(var(--muted-foreground));
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  /* Reset counter on parent */
+  .cards-numbered {
+    counter-reset: card-counter;
+  }
+
+  /* ================================
+     EDITORIAL LAYOUT HELPERS
+     ================================ */
+
+  .max-content {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .max-content {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  /* ================================
+     FLOWENCY BRAND COLORS
+     ================================ */
+
   .flowency-dark-blue {
     @apply bg-primary text-primary-foreground;
   }

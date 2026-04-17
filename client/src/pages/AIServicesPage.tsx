@@ -1,13 +1,150 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "wouter";
 import { Menu, X, ArrowRight, Target, Shield } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import SEOHead from "@/components/SEOHead";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import Footer from "@/components/Footer";
 
+// Flowing Energy Streams - AI-focused visual with circuit-like paths
+function FlowingStreams() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, 120]);
+
+  return (
+    <div ref={containerRef} className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Background atmospheric glow */}
+      <div
+        className="absolute right-0 top-1/3 w-[70vw] h-[70vh]"
+        style={{
+          background: 'radial-gradient(ellipse at 60% 50%, rgba(200,120,80,0.12) 0%, rgba(200,100,60,0.06) 35%, transparent 65%)',
+          filter: 'blur(50px)',
+        }}
+      />
+
+      {/* SVG Flowing Streams */}
+      <svg
+        className="absolute right-0 top-0 w-full h-full"
+        viewBox="0 0 1200 800"
+        preserveAspectRatio="xMidYMid slice"
+      >
+        <defs>
+          <linearGradient id="aiStreamGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="rgba(200,120,80,0)" />
+            <stop offset="25%" stopColor="rgba(200,120,80,0.5)" />
+            <stop offset="50%" stopColor="rgba(220,140,90,0.7)" />
+            <stop offset="75%" stopColor="rgba(200,120,80,0.5)" />
+            <stop offset="100%" stopColor="rgba(200,120,80,0)" />
+          </linearGradient>
+
+          <linearGradient id="aiStreamGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="rgba(180,100,70,0)" />
+            <stop offset="35%" stopColor="rgba(180,100,70,0.35)" />
+            <stop offset="65%" stopColor="rgba(200,110,75,0.4)" />
+            <stop offset="100%" stopColor="rgba(180,100,70,0)" />
+          </linearGradient>
+
+          <filter id="aiStreamGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="6" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        {/* Primary flowing stream */}
+        <motion.path
+          d="M -100,320 C 200,280 400,380 600,340 S 900,260 1100,320 S 1400,380 1600,320"
+          fill="none"
+          stroke="url(#aiStreamGradient1)"
+          strokeWidth="3"
+          strokeLinecap="round"
+          filter="url(#aiStreamGlow)"
+          style={{ y: y1 }}
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ duration: 2, ease: "easeOut" }}
+        />
+
+        {/* Secondary stream */}
+        <motion.path
+          d="M -50,420 C 250,450 450,370 700,410 S 950,480 1150,420"
+          fill="none"
+          stroke="url(#aiStreamGradient2)"
+          strokeWidth="2"
+          strokeLinecap="round"
+          filter="url(#aiStreamGlow)"
+          style={{ y: y2 }}
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ duration: 2.5, ease: "easeOut", delay: 0.3 }}
+        />
+
+        {/* Thin accent stream */}
+        <motion.path
+          d="M 100,360 C 350,330 550,400 800,360 S 1050,290 1300,360"
+          fill="none"
+          stroke="rgba(220,150,100,0.2)"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 3, ease: "easeOut", delay: 0.6 }}
+        />
+      </svg>
+
+      {/* Subtle bokeh particles */}
+      {[...Array(12)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute rounded-full"
+          style={{
+            width: 3 + (i % 4) * 2,
+            height: 3 + (i % 4) * 2,
+            background: `radial-gradient(circle, rgba(${220 + (i % 3) * 10}, ${130 + (i % 4) * 10}, ${90 + (i % 3) * 10}, ${0.5 + (i % 3) * 0.15}) 0%, transparent 70%)`,
+            right: `${15 + (i * 5) % 45}%`,
+            top: `${20 + (i * 4) % 60}%`,
+            filter: 'blur(1px)',
+          }}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{
+            opacity: [0.3, 0.6, 0.3],
+            scale: [1, 1.15, 1],
+            y: [0, -12, 0],
+          }}
+          transition={{
+            duration: 4 + (i % 3),
+            repeat: Infinity,
+            delay: i * 0.25,
+            ease: "easeInOut"
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
 export default function AIServicesPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (window.scrollY / totalHeight) * 100;
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -39,8 +176,16 @@ export default function AIServicesPage() {
         structuredData={structuredData}
       />
 
+      {/* Scroll Progress Indicator */}
+      <div className="fixed top-0 left-0 right-0 h-1 z-[60]">
+        <div
+          className="h-full bg-gradient-to-r from-[hsl(18,55%,50%)] to-[hsl(18,65%,60%)]"
+          style={{ width: `${scrollProgress}%`, transition: 'width 0.1s ease-out' }}
+        />
+      </div>
+
       {/* Navigation - Full-width style with centered links */}
-      <nav className="fixed top-0 w-full bg-background/98 backdrop-blur-sm z-50 border-b border-border">
+      <nav className="fixed top-1 w-full bg-background z-50 border-b border-border">
         <div className="flex items-center justify-between h-16 px-6 lg:px-12">
           {/* Logo - Left */}
           <Link to="/" className="flex-shrink-0">
@@ -110,207 +255,250 @@ export default function AIServicesPage() {
         )}
       </nav>
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-background">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8 text-center">
-          <motion.div {...fadeIn}>
-            <p className="text-sm uppercase tracking-widest text-accent font-medium mb-4">
+      {/* Hero Section - Dark with flowing energy streams */}
+      <section className="section-gradient-hero pt-40 pb-20 md:pt-48 min-h-[85vh] flex items-center relative overflow-hidden">
+        {/* Flowing energy streams visual */}
+        <FlowingStreams />
+
+        <div className="max-content relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-4xl"
+          >
+            <span className="micro-label text-accent mb-6 block">
               AI Delivery Life Cycle
-            </p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-foreground leading-tight mb-6">
-              Execution isn't the<br />constraint anymore.
+            </span>
+            <h1 className="headline text-white mb-8" style={{ fontSize: 'clamp(3.5rem, 9vw, 5.5rem)', lineHeight: 0.9 }}>
+              <span className="block">EXECUTION ISN'T</span>
+              <span className="block">THE CONSTRAINT</span>
+              <span className="block text-white/50">ANYMORE.</span>
             </h1>
-            <p className="text-xl md:text-2xl text-accent font-medium mb-4">
+            <p className="text-2xl md:text-4xl text-accent font-bold mb-8">
               Alignment is.
             </p>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-white/70 max-w-xl mb-10">
               AI-DLC is how you keep delivery systems aligned when AI builds faster than you can decide. The bottleneck isn't capacity - it's knowing what to activate, why, and how to keep it aligned once it's live.
             </p>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 text-base font-medium text-accent-foreground bg-accent hover:bg-accent/90 transition-colors rounded"
+              className="inline-flex items-center gap-3 text-lg font-semibold text-white border-b-2 border-white/30 pb-1 hover:border-white transition-colors"
             >
               Start a conversation
-              <ArrowRight className="w-4 h-4" />
+              <span className="text-xl">→</span>
             </Link>
           </motion.div>
         </div>
       </section>
 
-      {/* The Challenge */}
-      <section className="py-16 md:py-20 bg-muted/40">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-          <motion.div {...fadeIn}>
-            <p className="text-xl md:text-2xl text-foreground font-medium leading-relaxed mb-6">
+      {/* Pause Section - The Challenge (Dark) */}
+      <section className="section-dark section-pause">
+        <div className="max-content">
+          <motion.div {...fadeIn} className="max-w-3xl mx-auto">
+            <p className="headline-secondary text-white mb-8">
               If your clarity is off by 5%, AI will amplify it by 500%.
             </p>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+            <p className="body-narrow text-white/60 mx-auto mb-10">
               Speed without intent isn't innovation - it's waste, accelerated. The new failure mode isn't late delivery. It's instant delivery of the wrong things. When every exec's "great idea" can hit production overnight, economic discipline becomes survival.
             </p>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-medium transition-colors"
+              className="inline-flex items-center gap-2 font-semibold text-[hsl(18,55%,55%)] hover:gap-3 transition-all"
             >
               Sound familiar? Let's talk about your alignment gaps.
+              <span>→</span>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* The Shift - Dark with Visual Narrative */}
+      <section className="section-dark-deep py-16">
+        <div className="max-content">
+          {/* Headline */}
+          <motion.h2
+            {...fadeIn}
+            className="headline-secondary text-white text-center mb-10"
+          >
+            THE CRAFT DIDN'T DISAPPEAR. IT MOVED.
+          </motion.h2>
+
+          {/* Three-column visual - Frontiers prominent, Middle collapsed */}
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-6 md:gap-4 items-stretch mb-10">
+
+            {/* UPSTREAM FRONTIER - Prominent Card */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="border-2 border-[hsl(18,55%,48%)] bg-[hsl(215,45%,10%)] p-8 relative"
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-full border border-[hsl(18,55%,48%)] flex items-center justify-center">
+                  <Target className="w-5 h-5 text-[hsl(18,55%,55%)]" />
+                </div>
+                <div>
+                  <span className="text-[hsl(18,55%,55%)] font-semibold uppercase tracking-wider text-xs block">Upstream</span>
+                  <span className="text-white font-bold text-lg">Frontier</span>
+                </div>
+              </div>
+              <ul className="space-y-3">
+                <li className="flex items-center gap-2 text-white/80">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[hsl(18,55%,55%)]" />
+                  Intent & clarity
+                </li>
+                <li className="flex items-center gap-2 text-white/80">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[hsl(18,55%,55%)]" />
+                  Prioritisation
+                </li>
+                <li className="flex items-center gap-2 text-white/80">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[hsl(18,55%,55%)]" />
+                  Economics
+                </li>
+                <li className="flex items-center gap-2 text-white/80">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[hsl(18,55%,55%)]" />
+                  Alignment
+                </li>
+              </ul>
+            </motion.div>
+
+            {/* MIDDLE - Collapsed/Compressed Visual */}
+            <motion.div
+              initial={{ opacity: 0, scaleX: 0.8 }}
+              whileInView={{ opacity: 0.4, scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="hidden md:flex flex-col items-center justify-center px-6 py-8 relative"
+            >
+              {/* Compression arrows pointing inward */}
+              <div className="absolute left-0 top-1/2 -translate-y-1/2 text-white/20 text-2xl">›</div>
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 text-white/20 text-2xl">‹</div>
+
+              <div className="text-center">
+                <span className="text-white/30 font-semibold uppercase tracking-wider text-xs block mb-2">Middle</span>
+                <span className="text-white/40 font-medium text-sm block mb-3">Now ambient</span>
+                <p className="text-white/25 text-xs max-w-[120px]">
+                  Build & test — accelerated, spec-driven, AI-native
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Mobile: Middle section */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 0.4 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="md:hidden text-center py-4 border-y border-white/10"
+            >
+              <span className="text-white/30 font-semibold uppercase tracking-wider text-xs block">Middle → Now Ambient</span>
+              <p className="text-white/25 text-xs mt-1">Build & test — AI-native</p>
+            </motion.div>
+
+            {/* DOWNSTREAM FRONTIER - Prominent Card */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="border-2 border-[hsl(18,55%,48%)] bg-[hsl(215,45%,10%)] p-8 relative"
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-full border border-[hsl(18,55%,48%)] flex items-center justify-center">
+                  <Shield className="w-5 h-5 text-[hsl(18,55%,55%)]" />
+                </div>
+                <div>
+                  <span className="text-[hsl(18,55%,55%)] font-semibold uppercase tracking-wider text-xs block">Downstream</span>
+                  <span className="text-white font-bold text-lg">Frontier</span>
+                </div>
+              </div>
+              <ul className="space-y-3">
+                <li className="flex items-center gap-2 text-white/80">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[hsl(18,55%,55%)]" />
+                  Assurance
+                </li>
+                <li className="flex items-center gap-2 text-white/80">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[hsl(18,55%,55%)]" />
+                  Governance
+                </li>
+                <li className="flex items-center gap-2 text-white/80">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[hsl(18,55%,55%)]" />
+                  Observability
+                </li>
+                <li className="flex items-center gap-2 text-white/80">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[hsl(18,55%,55%)]" />
+                  Learning loops
+                </li>
+              </ul>
+            </motion.div>
+          </div>
+
+          {/* "Where you need us" - CTA Band */}
+          <motion.div
+            {...fadeIn}
+            className="bg-[hsl(215,35%,25%)] py-8 px-6 text-center"
+          >
+            <p className="text-xl text-white font-bold mb-3">This is where you need us.</p>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 text-white/80 hover:text-white border-b border-white/30 hover:border-white pb-1 transition-colors"
+            >
+              Book a discovery call
               <ArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>
         </div>
       </section>
 
-      {/* The Shift */}
-      <section className="py-16 md:py-20 bg-background">
-        <div className="max-w-5xl mx-auto px-6 lg:px-8">
-          <motion.div {...fadeIn}>
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-10 text-center">
-              The craft didn't disappear. It moved.
+      {/* Our AI-DLC Approach (Dark) */}
+      <section className="section-dark section-spacing-lg">
+        <div className="max-content">
+          <motion.div {...fadeIn} className="mb-12">
+            <span className="micro-label block mb-4 text-white/50">Our Framework</span>
+            <h2 className="headline-secondary text-white mb-4">
+              OUR AI-DLC APPROACH
             </h2>
-
-            {/* Three column layout with emphasis on frontiers */}
-            <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-6 items-stretch mb-8">
-
-              {/* Upstream Frontier - PROMINENT */}
-              <div className="bg-accent/10 border-2 border-accent rounded-lg p-6 md:p-8">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
-                    <Target className="w-5 h-5 text-accent" />
-                  </div>
-                  <div>
-                    <p className="text-xs uppercase tracking-widest text-accent font-semibold">Upstream</p>
-                    <p className="text-lg font-bold text-foreground">Frontier</p>
-                  </div>
-                </div>
-                <ul className="space-y-2 text-foreground">
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-accent rounded-full" />
-                    Intent & clarity
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-accent rounded-full" />
-                    Prioritisation
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-accent rounded-full" />
-                    Economics
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-accent rounded-full" />
-                    Alignment
-                  </li>
-                </ul>
-              </div>
-
-              {/* Middle - Original style but slightly muted */}
-              <div className="p-6 border-y md:border-y-0 md:border-x border-border flex flex-col justify-center text-center opacity-60">
-                <p className="text-sm text-muted-foreground uppercase tracking-wide mb-2">Middle</p>
-                <p className="text-lg text-foreground font-medium">Now ambient</p>
-                <p className="text-sm text-muted-foreground mt-2">Build & test - accelerated, spec-driven, AI-native</p>
-              </div>
-
-              {/* Downstream Frontier - PROMINENT */}
-              <div className="bg-accent/10 border-2 border-accent rounded-lg p-6 md:p-8">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
-                    <Shield className="w-5 h-5 text-accent" />
-                  </div>
-                  <div>
-                    <p className="text-xs uppercase tracking-widest text-accent font-semibold">Downstream</p>
-                    <p className="text-lg font-bold text-foreground">Frontier</p>
-                  </div>
-                </div>
-                <ul className="space-y-2 text-foreground">
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-accent rounded-full" />
-                    Assurance
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-accent rounded-full" />
-                    Governance
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-accent rounded-full" />
-                    Observability
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-accent rounded-full" />
-                    Learning loops
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            {/* "Where you need us" banner */}
-            <div className="bg-primary text-primary-foreground py-5 px-6 rounded-lg text-center">
-              <p className="font-semibold text-lg mb-2">This is where you need us.</p>
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 text-sm text-primary-foreground/90 hover:text-primary-foreground underline underline-offset-2"
-              >
-                Book a discovery call
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Our AI-DLC Approach */}
-      <section className="py-20 md:py-28 bg-muted/40">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
-          <motion.div {...fadeIn} className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Our AI-DLC Approach
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="body-text text-lg text-white/60 max-w-xl">
               Two capabilities. One control layer across both frontiers.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border border-white/10">
             {/* IntentOps Card */}
             <motion.div
               {...fadeIn}
-              className="bg-card border border-border rounded p-8 md:p-10 flex flex-col"
+              className="p-10 md:p-12 border-b md:border-b-0 md:border-r border-white/10 relative"
             >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="inline-block bg-primary text-primary-foreground px-4 py-1.5 rounded text-sm font-medium">
-                  IntentOps
+              <span className="number-accent text-white/20">01</span>
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="inline-block bg-white/10 text-white px-4 py-1.5 text-sm font-medium">
+                    IntentOps
+                  </div>
+                  <div className="flex gap-1">
+                    <span className="px-2 py-0.5 bg-[hsl(18,55%,48%)]/20 text-[hsl(18,55%,60%)] text-xs border border-[hsl(18,55%,48%)]/30">Upstream</span>
+                    <span className="px-2 py-0.5 bg-[hsl(18,55%,48%)]/20 text-[hsl(18,55%,60%)] text-xs border border-[hsl(18,55%,48%)]/30">Downstream</span>
+                  </div>
                 </div>
-                <div className="flex gap-1">
-                  <span className="px-2 py-0.5 bg-accent/15 text-accent text-xs rounded border border-accent/30">Upstream</span>
-                  <span className="px-2 py-0.5 bg-accent/15 text-accent text-xs rounded border border-accent/30">Downstream</span>
+                <h3 className="headline-tertiary text-white mb-3">
+                  Cognitive sovereignty for the AI era.
+                </h3>
+                <p className="text-lg text-[hsl(18,55%,60%)] font-medium mb-6">
+                  Retain the ability to steer. Scale without it, and you don't own the outcome.
+                </p>
+                <p className="body-text text-white/60 mb-8">
+                  IntentOps spans both frontiers: upstream for clarifying intent, prioritisation and economics; downstream for governance, observability and learning loops. Your real-time control layer for connecting AI initiatives to measurable value.
+                </p>
+                <div className="space-y-3 mb-10">
+                  <p className="body-text text-white/80">Why did the system do this? Who set the rules? Who intervenes when it drifts?</p>
+                  <p className="body-text text-white/80">Compliance as architecture, not documentation</p>
+                  <p className="body-text text-white/80">Detect drift before it becomes cognitive debt</p>
                 </div>
-              </div>
-              <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-2">
-                Cognitive sovereignty for the AI era.
-              </h3>
-              <p className="text-lg text-accent font-medium mb-4">
-                Retain the ability to steer. Scale without it, and you don't own the outcome.
-              </p>
-              <p className="text-muted-foreground leading-relaxed mb-6">
-                IntentOps spans both frontiers: upstream for clarifying intent, prioritisation and economics; downstream for governance, observability and learning loops. Your real-time control layer for connecting AI initiatives to measurable value.
-              </p>
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-start gap-3">
-                  <span className="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-foreground">Why did the system do this? Who set the rules? Who intervenes when it drifts?</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-foreground">Compliance as architecture, not documentation</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-foreground">Detect drift before it becomes cognitive debt</span>
-                </li>
-              </ul>
-              <div className="mt-auto">
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-medium transition-colors"
-                >
+                <Link to="/contact" className="inline-flex items-center gap-2 font-semibold text-[hsl(18,55%,55%)] hover:gap-3 transition-all">
                   Talk to us about IntentOps
-                  <ArrowRight className="w-4 h-4" />
+                  <span>→</span>
                 </Link>
               </div>
             </motion.div>
@@ -319,44 +507,33 @@ export default function AIServicesPage() {
             <motion.div
               {...fadeIn}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="bg-card border border-border rounded p-8 md:p-10 flex flex-col"
+              className="p-10 md:p-12 relative"
             >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="inline-block bg-accent text-accent-foreground px-4 py-1.5 rounded text-sm font-medium">
-                  Actuate
+              <span className="number-accent text-white/20">02</span>
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="inline-block bg-[hsl(18,55%,48%)] text-white px-4 py-1.5 text-sm font-medium">
+                    Actuate
+                  </div>
+                  <span className="px-2 py-0.5 bg-white/10 text-white/60 text-xs border border-white/20">The Middle</span>
                 </div>
-                <span className="px-2 py-0.5 bg-muted text-muted-foreground text-xs rounded border border-border">The Middle</span>
-              </div>
-              <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-2">
-                From spec to production. No slideshows.
-              </h3>
-              <p className="text-lg text-accent font-medium mb-4">
-                Don't like it? Rip it up and start again. In minutes.
-              </p>
-              <p className="text-muted-foreground leading-relaxed mb-6">
-                Actuate handles the ambient middle - AI-native delivery at scale. Software becomes disposable like infrastructure did with IaC. Write the spec. Generate. Deploy. Iterate. Your differentiators become your data, your clarity of intent, and your ability to steer.
-              </p>
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-start gap-3">
-                  <span className="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-foreground">Prototype to production while you're still in sprint planning</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-foreground">AI-native process automation - not faster automation of broken processes</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-foreground">Behaviour-first, spec-driven development</span>
-                </li>
-              </ul>
-              <div className="mt-auto">
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-medium transition-colors"
-                >
+                <h3 className="headline-tertiary text-white mb-3">
+                  From spec to production. No slideshows.
+                </h3>
+                <p className="text-lg text-[hsl(18,55%,60%)] font-medium mb-6">
+                  Don't like it? Rip it up and start again. In minutes.
+                </p>
+                <p className="body-text text-white/60 mb-8">
+                  Actuate handles the ambient middle - AI-native delivery at scale. Software becomes disposable like infrastructure did with IaC. Write the spec. Generate. Deploy. Iterate. Your differentiators become your data, your clarity of intent, and your ability to steer.
+                </p>
+                <div className="space-y-3 mb-10">
+                  <p className="body-text text-white/80">Prototype to production while you're still in sprint planning</p>
+                  <p className="body-text text-white/80">AI-native process automation - not faster automation of broken processes</p>
+                  <p className="body-text text-white/80">Behaviour-first, spec-driven development</p>
+                </div>
+                <Link to="/contact" className="inline-flex items-center gap-2 font-semibold text-[hsl(18,55%,55%)] hover:gap-3 transition-all">
                   See how Actuate delivers
-                  <ArrowRight className="w-4 h-4" />
+                  <span>→</span>
                 </Link>
               </div>
             </motion.div>
@@ -364,94 +541,125 @@ export default function AIServicesPage() {
         </div>
       </section>
 
-      {/* Cognitive Debt Warning */}
-      <section className="py-16 md:py-20 bg-background">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8">
-          <motion.div {...fadeIn}>
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6 text-center">
-              Cognitive debt is the new technical debt.
+      {/* Cognitive Debt Warning - Deep Dark */}
+      <section className="section-dark-deep py-20">
+        <div className="max-content">
+          <motion.div {...fadeIn} className="max-w-4xl mx-auto text-center">
+            <h2 className="headline-secondary text-white mb-10">
+              COGNITIVE DEBT IS THE NEW TECHNICAL DEBT.
             </h2>
-            <div className="bg-muted/50 border-l-4 border-accent p-6 rounded-r mb-8">
-              <p className="text-foreground leading-relaxed">
+            <div className="text-left bg-white/5 border-l-4 border-[hsl(18,55%,48%)] p-8 mb-12">
+              <p className="text-lg text-white/80">
                 While AI use is democratised across the enterprise, its risks aren't. Code that works but nobody can explain why. Automations running critical systems with zero docs. AI models making decisions we can't trace. Critical business logic buried in tools nobody owns.
               </p>
             </div>
-            <p className="text-lg text-muted-foreground leading-relaxed text-center mb-8">
+            <p className="body-narrow text-white/60 mx-auto mb-12">
               Yes, AI helps you do things faster. But velocity without discipline is just faster chaos. The $2 trillion in global tech debt isn't a backlog of code - it's a backlog of bad decisions. AI will accelerate both outcomes and debt. You choose which.
             </p>
-            <div className="text-center">
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-accent-foreground hover:bg-accent/90 font-medium rounded transition-colors"
-              >
-                Request a cognitive debt audit
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-3 text-lg font-semibold text-white border-b-2 border-white/30 pb-1 hover:border-white transition-colors"
+            >
+              Request a cognitive debt audit
+              <span className="text-xl">→</span>
+            </Link>
           </motion.div>
         </div>
       </section>
 
-      {/* How They Connect */}
-      <section className="py-16 md:py-20 bg-muted/40">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8">
-          <motion.div {...fadeIn} className="text-center">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">
-              One loop. Intent to outcome.
+      {/* How They Connect - Visual Flow (Dark) */}
+      <section className="section-dark section-spacing">
+        <div className="max-content">
+          <motion.div {...fadeIn} className="text-center max-w-4xl mx-auto">
+            <h2 className="headline-secondary text-white mb-10">
+              ONE LOOP. INTENT TO OUTCOME.
             </h2>
 
             {/* Simple visual flow */}
-            <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-8">
-              <div className="px-6 py-3 bg-primary text-primary-foreground rounded font-medium">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 mb-10">
+              <div className="px-8 py-4 bg-white/10 text-white font-semibold text-lg border border-white/20">
                 IntentOps
               </div>
-              <ArrowRight className="w-6 h-6 text-muted-foreground rotate-90 md:rotate-0" />
-              <div className="px-6 py-3 bg-accent text-accent-foreground rounded font-medium">
+              <ArrowRight className="w-8 h-8 text-[hsl(18,55%,55%)] rotate-90 md:rotate-0" />
+              <div className="px-8 py-4 bg-[hsl(18,55%,48%)] text-white font-semibold text-lg">
                 Actuate
               </div>
-              <ArrowRight className="w-6 h-6 text-muted-foreground rotate-90 md:rotate-0" />
-              <div className="px-6 py-3 bg-foreground text-background rounded font-medium">
+              <ArrowRight className="w-8 h-8 text-[hsl(18,55%,55%)] rotate-90 md:rotate-0" />
+              <div className="px-8 py-4 bg-white text-[hsl(215,40%,12%)] font-semibold text-lg">
                 Value
               </div>
             </div>
 
-            <p className="text-lg text-foreground leading-relaxed max-w-2xl mx-auto">
+            <p className="body-narrow text-white/60 mx-auto">
               The next era of advantage belongs to organisations that connect strategic intent, intelligent execution, and real-time value assurance into one loop. Don't just modernise your systems. Modernise your intent.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 md:py-28 bg-primary">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-          <motion.div {...fadeIn}>
-            <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
-              Forget your AI strategy.
+      {/* DOMINANT CTA Section - Accent Band with Aurora */}
+      <section className="section-band-accent py-20 relative overflow-hidden">
+        {/* Aurora-style animated background */}
+        <div className="absolute inset-0 pointer-events-none">
+          <motion.div
+            className="absolute inset-0"
+            style={{
+              background: 'radial-gradient(ellipse at 30% 0%, rgba(255,180,120,0.25) 0%, transparent 50%)',
+            }}
+            animate={{
+              opacity: [0.5, 0.8, 0.5],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          <motion.div
+            className="absolute inset-0"
+            style={{
+              background: 'radial-gradient(ellipse at 70% 100%, rgba(220,140,80,0.2) 0%, transparent 60%)',
+            }}
+            animate={{
+              opacity: [0.4, 0.7, 0.4],
+              scale: [1.1, 1, 1.1],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2
+            }}
+          />
+        </div>
+
+        <div className="max-content relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
+            <h2 className="headline text-white mb-8" style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)' }}>
+              FORGET YOUR<br />AI STRATEGY.
             </h2>
-            <p className="text-xl md:text-2xl text-primary-foreground/90 font-medium mb-6">
-              Where's your Intent Alignment strategy?
-            </p>
-            <p className="text-lg text-primary-foreground/70 mb-8 max-w-xl mx-auto">
-              The question isn't how fast you can build. It's why you're building, and how quickly you can prove it worked.
+            <p className="text-xl text-white/80 max-w-2xl mx-auto mb-12">
+              Where's your Intent Alignment strategy? The question isn't how fast you can build. It's why you're building, and how quickly you can prove it worked.
             </p>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 text-lg font-medium bg-white text-primary hover:bg-gray-100 transition-colors rounded"
+              className="inline-flex items-center justify-center gap-3 px-10 py-5 text-lg font-semibold bg-white text-[hsl(18,55%,40%)] hover:bg-white/90 transition-all duration-300"
             >
               Start a conversation
-              <ArrowRight className="w-5 h-5" />
+              <span className="text-xl">→</span>
             </Link>
           </motion.div>
         </div>
       </section>
 
-      <Footer
-        ctaText=""
-        ctaDescription=""
-        ctaButtonText=""
-        showCta={false}
-      />
+      <Footer />
     </div>
   );
 }

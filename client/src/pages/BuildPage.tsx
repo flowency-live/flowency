@@ -32,7 +32,7 @@ export default function BuildPage() {
 
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-background/95 backdrop-blur-sm z-50 border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-content">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <Link to="/">
@@ -86,101 +86,117 @@ export default function BuildPage() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
-        {/* Geometric Background Elements */}
-        <div className="absolute top-10 right-10 w-[500px] h-[600px] bg-gradient-to-br from-purple/10 to-accent/20 rounded-[4rem] blur-2xl rotate-12" />
-        <div className="absolute top-40 right-20 w-32 h-32 bg-purple/20 rounded-3xl blur-xl" />
-        <div className="absolute bottom-20 -left-20 w-[400px] h-[500px] bg-accent/10 rounded-[4rem] blur-2xl -rotate-6" />
+      {/* Hero Section - Dark with subtle depth */}
+      <section className="section-gradient-hero pt-40 pb-32 md:pt-48 min-h-[90vh] flex items-center relative overflow-hidden">
+        {/* Subtle visual elements - reduced opacity */}
+        <div className="absolute top-10 right-10 w-[500px] h-[600px] bg-white/[0.03] rounded-[4rem] blur-3xl rotate-12" />
+        <div className="absolute bottom-20 -left-20 w-[400px] h-[500px] bg-white/[0.02] rounded-[4rem] blur-2xl -rotate-6" />
 
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative max-content text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="space-y-8"
+            transition={{ duration: 0.8 }}
+            className="space-y-10"
           >
             {/* Headline */}
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight">
-              Your Business.{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-accent">
-                Digitised Properly.
-              </span>{' '}
-              Finally.
+            <h1 className="headline text-white" style={{ fontSize: 'clamp(3.5rem, 9vw, 5.5rem)', lineHeight: 0.9 }}>
+              <span className="block">YOUR BUSINESS.</span>
+              <span className="block text-accent">DIGITISED PROPERLY.</span>
+              <span className="block text-white/50">FINALLY.</span>
             </h1>
 
             {/* Subheadline */}
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-white/70 max-w-xl mx-auto">
               You've built your business. Now it deserves its own operating system.
             </p>
-
-            <p className="text-lg md:text-xl text-muted-foreground/80 max-w-3xl mx-auto leading-relaxed">
-              Most SMEs run on spreadsheets, inboxes and heroic memory. You've built something real - but your systems haven't kept up.
-            </p>
-
-            {/* GOLD STACK: CTO Positioning */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
-              className="pt-4"
-            >
-              <p className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-accent">
-                We are your internal CTO and delivery team.
-              </p>
-            </motion.div>
-
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              We build the digital operating system your business should have had years ago. Tailored to how you actually work. Delivered in days, not months.
-            </p>
-
-            {/* GOLD STACK: Core Pillars */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
-              className="pt-4"
-            >
-              <p className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-accent">
-                Clarity + Speed + Capability.
-              </p>
-            </motion.div>
 
             {/* CTA */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9, duration: 0.6 }}
-              className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8"
+              transition={{ delay: 0.4, duration: 0.6 }}
             >
               <a
                 href="https://flowency.build"
-                className="inline-flex items-center px-8 py-4 rounded-lg bg-accent text-accent-foreground text-lg font-semibold hover:bg-accent/90 transition-all hover:scale-105 group"
+                className="inline-flex items-center gap-3 text-lg font-semibold text-white border-b-2 border-white/30 pb-1 hover:border-white transition-colors"
               >
                 See How We Build Business Operating Systems
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <span className="text-xl">→</span>
               </a>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* The Truth Section */}
-      <section className="py-20 md:py-32 bg-muted/30">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+      {/* Pause Section - The Problem (Dark) */}
+      <section className="section-dark section-pause">
+        <div className="max-content">
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-8"
+            className="text-xl md:text-2xl text-white/70 text-center max-w-3xl mx-auto"
           >
-            <h2 className="text-3xl md:text-5xl font-bold text-center">
-              The truth nobody tells SMEs
+            Most SMEs run on spreadsheets, inboxes and heroic memory. You've built something real - but your systems haven't kept up.
+          </motion.p>
+        </div>
+      </section>
+
+      {/* Band - Core Pillars (Accent Band) */}
+      <section className="section-band-accent py-0">
+        <div className="py-16 text-center">
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="headline-secondary text-white"
+          >
+            WE ARE YOUR INTERNAL CTO AND DELIVERY TEAM.
+          </motion.p>
+        </div>
+        <div className="band-numbered border-t border-white/10">
+          {[
+            { num: "01", label: "Clarity" },
+            { num: "02", label: "Speed" },
+            { num: "03", label: "Capability" },
+          ].map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+              className="band-numbered-item py-10"
+            >
+              <div className="band-number text-white">{item.num}</div>
+              <div className="band-label text-white">{item.label}</div>
+            </motion.div>
+          ))}
+        </div>
+        <div className="py-12 text-center">
+          <p className="text-lg text-white/70 max-w-2xl mx-auto px-6">
+            We build the digital operating system your business should have had years ago. Tailored to how you actually work. Delivered in days, not months.
+          </p>
+        </div>
+      </section>
+
+      {/* The Truth Section (Dark) */}
+      <section className="section-dark section-spacing-lg">
+        <div className="max-content max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="headline-secondary text-white mb-12">
+              THE TRUTH NOBODY TELLS SMES
             </h2>
 
-            <div className="space-y-6 text-lg md:text-xl text-muted-foreground leading-relaxed">
-              <p>
+            <div className="space-y-8 body-text text-white/60 mb-12">
+              <p className="text-xl text-white/80">
                 Spreadsheets feel comfortable until they become a trap.
               </p>
 
@@ -191,14 +207,15 @@ export default function BuildPage() {
               <p>
                 Your team is firefighting. You're compensating for systems that don't exist. Everything feels harder than it should.
               </p>
+            </div>
 
-              <div className="text-center py-4">
-                <p className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-accent">
-                  That's the lie we're here to correct.
-                </p>
-              </div>
+            <div className="divider-line mb-12" />
 
-              <p className="text-center text-xl">
+            <div className="text-center">
+              <p className="headline-tertiary text-[hsl(18,55%,55%)] mb-6">
+                That's the lie we're here to correct.
+              </p>
+              <p className="text-lg text-white">
                 Our superpower isn't AI. It's making digital transformation accessible to businesses like yours.
               </p>
             </div>
@@ -206,95 +223,87 @@ export default function BuildPage() {
         </div>
       </section>
 
-      {/* What We Build Section */}
-      <section className="py-20 md:py-32">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* What We Build Section (Light Reset) */}
+      <section className="section-light section-spacing">
+        <div className="max-content">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-12"
+            className="mb-16"
           >
-            <h2 className="text-3xl md:text-5xl font-bold text-center">
-              What we build
+            <h2 className="headline-secondary text-gray-900 mb-6">
+              WHAT WE BUILD
             </h2>
+          </motion.div>
 
-            <div className="grid md:grid-cols-2 gap-4">
-              {[
-                'Custom CRM shaped around your actual sales process',
-                'Operational dashboards that replace spreadsheets forever',
-                'Job, project or case management with real-time margin visibility',
-                'Stock, asset and equipment tracking',
-                'Automated reporting, invoicing and compliance',
-                'Scheduling, booking and workflow tools',
-                'AI assistants tuned to your business and your data',
-                'Mobile and web apps for your team and your customers',
-              ].map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.05, duration: 0.4 }}
-                  className="flex items-start gap-3 p-4 rounded-xl bg-muted/50 border border-border hover:border-accent/30 transition-all duration-300"
-                >
-                  <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                  <p className="text-foreground/80">{item}</p>
-                </motion.div>
-              ))}
-            </div>
+          <div className="cards-numbered grid md:grid-cols-2 gap-0 border border-gray-200 bg-white mb-16">
+            {[
+              'Custom CRM shaped around your actual sales process',
+              'Operational dashboards that replace spreadsheets forever',
+              'Job, project or case management with real-time margin visibility',
+              'Stock, asset and equipment tracking',
+              'Automated reporting, invoicing and compliance',
+              'Scheduling, booking and workflow tools',
+              'AI assistants tuned to your business and your data',
+              'Mobile and web apps for your team and your customers',
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.03, duration: 0.4 }}
+                className={`p-6 flex items-start gap-4 ${
+                  i < 6 ? 'border-b' : ''
+                } ${i % 2 === 0 ? 'md:border-r' : ''} border-gray-200`}
+              >
+                <CheckCircle2 className="w-5 h-5 text-[hsl(18,55%,48%)] flex-shrink-0 mt-0.5" />
+                <p className="body-text text-gray-800">{item}</p>
+              </motion.div>
+            ))}
+          </div>
 
-            <div className="text-center pt-8">
-              <p className="text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-accent">
-                If you can describe the problem, we can build the system.
-              </p>
-            </div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <p className="headline-tertiary text-[hsl(18,55%,45%)]">
+              If you can describe the problem, we can build the system.
+            </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-20 md:py-32 bg-muted/30">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* DOMINANT CTA Section - Accent Band */}
+      <section className="section-band-accent py-32 relative overflow-hidden">
+        <div className="max-content relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-8"
+            className="text-center"
           >
-            <h2 className="text-3xl md:text-5xl font-bold">
-              Ready to build your business operating system?
+            <h2 className="headline text-white mb-8" style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)' }}>
+              READY TO BUILD YOUR<br />BUSINESS OPERATING SYSTEM?
             </h2>
-
-            <div className="space-y-6 text-lg md:text-xl text-muted-foreground leading-relaxed">
-              <p>
-                Start with a working session. No pressure. No sales pitch.
-              </p>
-
-              <p>
-                Bring your biggest operational headache.
-                <br />
-                We'll show you what it looks like as a simple, fast, tailored system.
-              </p>
-
-              <div className="pt-4">
-                <p className="text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-accent">
-                  You leave with clarity and a working prototype - before spending anything.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
-              <a
-                href="https://flowency.build"
-                className="inline-flex items-center px-8 py-4 rounded-lg bg-accent text-accent-foreground text-lg font-semibold hover:bg-accent/90 transition-all hover:scale-105 group"
-              >
-                Explore Flowency Build
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </a>
-            </div>
+            <p className="text-xl text-white/80 max-w-2xl mx-auto mb-6">
+              Start with a working session. No pressure. No sales pitch.
+            </p>
+            <p className="text-lg text-white/60 max-w-xl mx-auto mb-12">
+              Bring your biggest operational headache. We'll show you what it looks like as a simple, fast, tailored system. You leave with clarity and a working prototype - before spending anything.
+            </p>
+            <a
+              href="https://flowency.build"
+              className="inline-flex items-center justify-center gap-3 px-10 py-5 text-lg font-semibold bg-white text-[hsl(18,55%,40%)] hover:bg-white/90 transition-all duration-300"
+            >
+              Explore Flowency Build
+              <span className="text-xl">→</span>
+            </a>
           </motion.div>
         </div>
       </section>
