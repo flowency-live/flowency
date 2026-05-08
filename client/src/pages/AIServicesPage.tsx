@@ -212,6 +212,9 @@ export default function AIServicesPage() {
             <Link to="/ai-services" className="text-sm text-accent font-medium relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:bg-accent">
               AI-DLC
             </Link>
+            <Link to="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-foreground after:transition-all after:duration-300">
+              About
+            </Link>
           </div>
 
           {/* Theme Toggle & CTA - Right */}
@@ -246,6 +249,9 @@ export default function AIServicesPage() {
               </Link>
               <Link to="/ai-services" className="block text-accent font-medium">
                 AI-DLC
+              </Link>
+              <Link to="/about" className="block text-foreground hover:text-accent transition-colors">
+                About
               </Link>
               <Link to="/contact" className="block text-foreground hover:text-accent transition-colors">
                 Contact

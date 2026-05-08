@@ -134,6 +134,9 @@ export default function ContactPage() {
               <Link to="/ai-services" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 AI Services
               </Link>
+              <Link to="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                About
+              </Link>
               <ThemeToggle />
               <Link
                 to="/contact"
@@ -161,6 +164,9 @@ export default function ContactPage() {
               </Link>
               <Link to="/ai-services" className="block text-foreground hover:text-accent transition-colors">
                 AI Services
+              </Link>
+              <Link to="/about" className="block text-foreground hover:text-accent transition-colors">
+                About
               </Link>
               <Link to="/contact" className="block text-accent font-medium">
                 Contact

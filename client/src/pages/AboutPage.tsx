@@ -1,10 +1,26 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
+import { useState, useEffect } from "react";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function AboutPage() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (window.scrollY / totalHeight) * 100;
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const fadeIn = {
     initial: { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0 },
@@ -36,6 +52,80 @@ export default function AboutPage() {
         canonicalUrl="https://flowency.co.uk/about"
         structuredData={structuredData}
       />
+
+      {/* Scroll Progress Indicator */}
+      <div className="fixed top-0 left-0 right-0 h-1 z-[60]">
+        <div
+          className="h-full bg-gradient-to-r from-[hsl(18,55%,50%)] to-[hsl(18,65%,60%)]"
+          style={{ width: `${scrollProgress}%`, transition: 'width 0.1s ease-out' }}
+        />
+      </div>
+
+      {/* Navigation */}
+      <nav className="fixed top-1 w-full bg-background z-50 border-b border-border">
+        <div className="flex items-center justify-between h-16 px-6 lg:px-12">
+          {/* Logo - Left */}
+          <Link to="/" className="flex-shrink-0">
+            <img
+              src="/assets/flowency-logo-light.svg"
+              alt="Flowency"
+              className="h-9 w-auto cursor-pointer hover:opacity-70 transition-opacity dark:hidden"
+            />
+            <img
+              src="/assets/flowency-logo-dark.svg"
+              alt="Flowency"
+              className="h-9 w-auto cursor-pointer hover:opacity-70 transition-opacity hidden dark:block"
+            />
+          </Link>
+
+          {/* Nav Links - Center */}
+          <div className="hidden md:flex items-center gap-12">
+            <Link to="/#approach" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-foreground after:transition-all after:duration-300">Approach</Link>
+            <Link to="/#services" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-foreground after:transition-all after:duration-300">Services</Link>
+            <Link to="/ai-services" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-foreground after:transition-all after:duration-300">AI-DLC</Link>
+            <Link to="/about" className="text-lg font-medium text-accent relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:bg-accent">About</Link>
+          </div>
+
+          {/* Theme Toggle & CTA - Right */}
+          <div className="hidden md:flex items-center gap-4">
+            <ThemeToggle />
+            <Link
+              to="/contact"
+              className="px-5 py-2.5 text-base font-medium text-accent-foreground bg-accent hover:bg-accent/90 transition-colors rounded-md"
+            >
+              Contact
+            </Link>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-foreground hover:text-accent transition-colors p-2"
+            >
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
+        </div>
+
+        {isMenuOpen && (
+          <div className="md:hidden bg-background border-t border-border">
+            <div className="px-6 py-4 space-y-4">
+              <Link to="/" onClick={() => setIsMenuOpen(false)} className="block text-base font-medium text-muted-foreground hover:text-foreground">Home</Link>
+              <Link to="/ai-services" onClick={() => setIsMenuOpen(false)} className="block text-base font-medium text-muted-foreground hover:text-foreground">AI-DLC</Link>
+              <Link to="/about" onClick={() => setIsMenuOpen(false)} className="block text-base font-medium text-accent">About</Link>
+              <Link
+                to="/contact"
+                onClick={() => setIsMenuOpen(false)}
+                className="block text-base text-accent font-semibold"
+              >
+                Contact
+              </Link>
+            </div>
+          </div>
+        )}
+      </nav>
 
       {/* Hero Section */}
       <section className="section-gradient-hero pt-32 pb-20 min-h-[50vh] flex items-center relative overflow-hidden">
