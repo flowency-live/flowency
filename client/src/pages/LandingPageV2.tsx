@@ -275,6 +275,7 @@ export default function LandingPageV2() {
             <a href="#approach" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-foreground after:transition-all after:duration-300">Approach</a>
             <a href="#services" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-foreground after:transition-all after:duration-300">Services</a>
             <Link to="/ai-services" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-foreground after:transition-all after:duration-300">AI-DLC</Link>
+            <Link to="/about" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-foreground after:transition-all after:duration-300">About</Link>
           </div>
 
           {/* Theme Toggle & CTA - Right */}
@@ -306,6 +307,7 @@ export default function LandingPageV2() {
               <a href="#approach" className="block text-base font-medium text-muted-foreground hover:text-foreground">Approach</a>
               <a href="#services" className="block text-base font-medium text-muted-foreground hover:text-foreground">Services</a>
               <Link to="/ai-services" className="block text-base font-medium text-muted-foreground hover:text-foreground">AI-DLC</Link>
+              <Link to="/about" className="block text-base font-medium text-muted-foreground hover:text-foreground">About</Link>
               <Link
                 to="/contact"
                 onClick={() => setIsMenuOpen(false)}

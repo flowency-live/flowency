@@ -14,6 +14,7 @@ import TermsOfUsePage from "@/pages/TermsOfUsePage";
 import PrivacyPolicyPage from "@/pages/PrivacyPolicyPage";
 import CookiePolicyPage from "@/pages/CookiePolicyPage";
 import VideoPage from "@/pages/VideoPage";
+import AboutPage from "@/pages/AboutPage";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -26,6 +27,7 @@ function Router() {
       <Route path="/home-v1" component={LandingPage} />
       <Route path="/ai-services" component={AIServicesPage} />
       <Route path="/contact" component={ContactPage} />
+      <Route path="/about" component={AboutPage} />
       <Route path="/intentops">{() => <Redirect to="/ai-services" />}</Route>
       <Route path="/actuate">{() => <Redirect to="/ai-services" />}</Route>
       <Route path="/build" component={BuildPage} />
