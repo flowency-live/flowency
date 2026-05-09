@@ -276,7 +276,7 @@ export default function AIServicesPage() {
             <span className="micro-label text-accent mb-6 block">
               AI Delivery Life Cycle
             </span>
-            <h1 className="headline text-white mb-8" style={{ fontSize: 'clamp(3.5rem, 9vw, 5.5rem)', lineHeight: 0.9 }}>
+            <h1 className="headline text-white mb-8" style={{ fontSize: 'clamp(2.5rem, 9vw, 5.5rem)', lineHeight: 0.9 }}>
               <span className="block">EXECUTION ISN'T</span>
               <span className="block">THE CONSTRAINT</span>
               <span className="block text-white/50">ANYMORE.</span>

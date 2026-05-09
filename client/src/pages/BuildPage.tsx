@@ -100,7 +100,7 @@ export default function BuildPage() {
             className="space-y-10"
           >
             {/* Headline */}
-            <h1 className="headline text-white" style={{ fontSize: 'clamp(3.5rem, 9vw, 5.5rem)', lineHeight: 0.9 }}>
+            <h1 className="headline text-white" style={{ fontSize: 'clamp(2.5rem, 9vw, 5.5rem)', lineHeight: 0.9 }}>
               <span className="block">YOUR BUSINESS.</span>
               <span className="block text-accent">DIGITISED PROPERLY.</span>
               <span className="block text-white/50">FINALLY.</span>

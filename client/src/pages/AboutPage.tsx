@@ -145,7 +145,7 @@ export default function AboutPage() {
             transition={{ duration: 0.8 }}
           >
             <span className="micro-label block mb-4 text-white/50">Who We Are</span>
-            <h1 className="headline text-white mb-8" style={{ fontSize: 'clamp(3rem, 10vw, 6rem)', lineHeight: 0.95 }}>
+            <h1 className="headline text-white mb-8" style={{ fontSize: 'clamp(2.25rem, 10vw, 6rem)', lineHeight: 0.95 }}>
               ABOUT<br />
               <span className="text-white/50">FLOWENCY</span>
             </h1>

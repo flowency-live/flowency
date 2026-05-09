@@ -342,7 +342,7 @@ export default function LandingPageV2() {
             transition={{ duration: 0.8 }}
             className="space-y-8 max-w-3xl"
           >
-            <h1 className="headline text-white" style={{ fontSize: 'clamp(4rem, 12vw, 8rem)', lineHeight: 0.9 }}>
+            <h1 className="headline text-white" style={{ fontSize: 'clamp(2.5rem, 12vw, 8rem)', lineHeight: 0.9 }}>
               <span className="block">BUILDING</span>
               <span className="block">ORGANISATIONS</span>
               <span className="block text-white/50">THAT FLOW</span>
@@ -710,8 +710,7 @@ export default function LandingPageV2() {
                        }}
                   />
                   {/* Single large digit */}
-                  <span className="absolute inset-0 flex items-center justify-center text-white font-black"
-                        style={{ fontSize: '5rem', lineHeight: 1 }}>
+                  <span className="absolute inset-0 flex items-center justify-center text-white font-black text-5xl md:text-6xl lg:text-7xl leading-none">
                     {i + 1}
                   </span>
                 </div>
